@@ -6,10 +6,10 @@ import threading
 
 # https://blog.miguelgrinberg.com/post/video-streaming-with-flask/page/8
 
-def index(request):
+def main_cam(request):
     context = {}
 
-    return render(request, "index.html", context)
+    return render(request, "cam/main.html", context=context)
 
 class VideoCamera(object):
     def __init__(self):

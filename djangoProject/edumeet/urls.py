@@ -1,8 +1,6 @@
 from django.urls import path
-from . import views
+from .views import main_cam
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('detectme', views.detectme, name='detectme'),
-    path('detectme2', views.detectme2, name='detectme2')
+    path('', main_cam, name='main_cam'),
 ]
