@@ -15,9 +15,11 @@ from channels.auth import AuthMiddlewareStack
 import edumeet.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangoProject.settings')
-
+'''
+ 크롬만이 아닌 여러 익스플로워 연동되게 하기 
+'''
 application = ProtocolTypeRouter({
-    "http" : get_asgi_application(),
+    "http": get_asgi_application(),
     # Just HTTP for now. (We can add other protocols later.)
     "websocket": AuthMiddlewareStack(
         URLRouter(

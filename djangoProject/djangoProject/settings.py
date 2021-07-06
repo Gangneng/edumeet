@@ -148,6 +148,4 @@ CHANNEL_LAYERS = {
     },
 }
 
-
-
 '''
