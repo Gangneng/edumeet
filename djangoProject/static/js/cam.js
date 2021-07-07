@@ -14,12 +14,12 @@ var webSocket;
 btnJoin.addEventListener('click', () => {
     username = usernameInput.value;
 
-    console.log('username: ',username);
+    console.log('username: ', username);
 
     if(username == ''){
         return;
     }
-    usernameInput.value='';
+    usernameInput.value = '';
     usernameInput.disabled = true;
     usernameInput.style.visibility = "hidden";
 
@@ -43,17 +43,16 @@ btnJoin.addEventListener('click', () => {
     /* 소켓 명령어 및 소켓 생성 */
     webSocket = new WebSocket(endPoint);
 
-    webSocket.addEventListener('open', () => {
+    webSocket.addEventListener('open', (e) => {
         console.log('Connection Opened');
-
         sendSignal('new-peer',{})
     });
     /* 메세지 보네기 함수 webSocketOnMessage 만듬 */
     webSocket.addEventListener('message', webSocketOnMessage);
-    webSocket.addEventListener('close', () => {
+    webSocket.addEventListener('close', (e) => {
         console.log('Connection Closed!');
     });
-    webSocket.addEventListener('error', () => {
+    webSocket.addEventListener('error', (e) => {
         console.log('Error Occurred!');
     });
 });
@@ -63,15 +62,16 @@ function webSocketOnMessage(event) {
     console.log('websocketOnmessage in !')
     /* Json 형식  */
     var parsedData = JSON.parse(event.data);
-    console.log(parsedData)
+
+    /* 받은 */
     var peerUsername = parsedData['peer'];
     var action = parsedData['action'];
     console.log(username == peerUsername,username,peerUsername)
     /* 로그인 확인 */
-    if(username !== peerUsername){
+    if(username == peerUsername){
+        console.log('나가짐')
         return;
     }
-    console.log('websocketOnmessage in 2!')
     var receiver_channel_name = parsedData['message']['receiver_channel_name'];
 
     /* 액션에 따른 명령어 */
@@ -96,6 +96,8 @@ function webSocketOnMessage(event) {
         var peer = mapPeers[peerUsername][0];
 
         peer.setRemoteDescription(answer);
+
+        return;
     }
 }
 
@@ -115,11 +117,11 @@ function createOfferer(peerUsername, receiver_channel_name){
     /* 만든 함수 dcOnMessage 밑에 있음 대화창 데이터 연동작업 */
     dc.addEventListener('message', dcOnMessage);
 
-    /* 만든 함수 createVideo 밑에 있음  영상 추가해 주기 */
+    /* 만든 함수 createVideo 밑에 있음  영상 위치 추가해 주기 */
     var remoteVideo = createVideo(peerUsername);
 
-    /* 만든 함수 setOnTrack 밑에 있음 영상에 음향이랑 비디오 결합하는거  */
-    setOnTrack(peer, peerUsername);
+    /* 만든 함수 setOnTrack 밑에 있음 영상에 음향이랑 비디오 실행 하는거  */
+    setOnTrack(peer, remoteVideo);
 
     /* 접속자 명단  */
     mapPeers[peerUsername] = [peer, dc];
@@ -129,8 +131,8 @@ function createOfferer(peerUsername, receiver_channel_name){
         var iceConnectionState = peer.iceConnectionState;
         if(iceConnectionState === 'failed' || iceConnectionState === 'disconnected' || iceConnectionState === 'closed'){
             delete mapPeers[peerUsername];
-
-            if(iceConnectionState !== 'closed'){
+            console.log('deleted iceConnection')
+            if(iceConnectionState != 'closed'){
                 peer.close();
             }
 
@@ -143,6 +145,8 @@ function createOfferer(peerUsername, receiver_channel_name){
     peer.addEventListener('icecandidate', (event) => {
         if(event.candidate){
             console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
+
+            return;
         }
         sendSignal('new-offer', {
             'sdp': peer.localDescription,
@@ -159,16 +163,19 @@ function createOfferer(peerUsername, receiver_channel_name){
 
 /* createOfferer 용함수  그트리밍 영상을 peer 에 넣어준다*/
 function addLocalTracks(peer){
+    console.log('addLocalTracks')
     localStream.getTracks().forEach(track => {
         peer.addTrack(track, localStream);
     });
+
+    return;
 }
 
 /* createOfferer 용함수  메세지 받은것을 적어준다 */
 var messageList = document.querySelector('#message-list');
 
-
 function  dcOnMessage(event){
+    console.log('dcOnMessage')
     var message = event.data;
     var li = document.createElement('li');
     li.appendChild(document.createTextNode(message));
@@ -177,6 +184,7 @@ function  dcOnMessage(event){
 
 /* createOfferer 용함수 영상 추가해주기 */
 function  createVideo(peerUsername){
+    console.log('createVideo')
     var videoContainer = document.querySelector('#video-container');
     var remoteVideo = document.createElement('video');
 
@@ -193,6 +201,7 @@ function  createVideo(peerUsername){
 
 /* createOfferer 용함수 영상 추가해주기 */
 function setOnTrack(peer, remoteVideo){
+    console.log('setOnTrack')
     var remoteStream = new MediaStream();
     remoteVideo.scrObject = remoteStream;
 
@@ -203,6 +212,7 @@ function setOnTrack(peer, remoteVideo){
 
 /* createOfferer 나간 접속자 영상 삭제 */
 function removeVideo(video){
+    console.log('removeVideo')
     var videoWrapper = video.parentNode;
     videoWrapper.parentNode.removeChild(videoWrapper);
 }
@@ -214,34 +224,32 @@ function createAnswerer(offer, peerUsername, receiver_channel_name){
     var peer = new RTCPeerConnection(null);
     // turn server stun server 작업 해야함 예 외부 ip 까지 접속해야함
 
-    /* 만든 함수 createVideo 밑에 있음  영상 추가해 주기 */
-    var remoteVideo = createVideo(peerUsername);
-
-    /* 만든 함수 setOnTrack 밑에 있음 영상에 음향이랑 비디오 결합하는거  */
-    setOnTrack(peer, peerUsername);
-
     /* 만든 함수 addLocalTracks 밑에 있음 영상 peer에 넣는 작업*/
     addLocalTracks(peer);
 
-    peer.addEventListener('datachannel', e => {
+    /* 만든 함수 createVideo 밑에 있음  영상 위치 추가해 주기 */
+    var remoteVideo = createVideo(peerUsername);
+
+    /* 만든 함수 setOnTrack 밑에 있음 영상에 음향이랑 비디오 실행 하는거  */
+    setOnTrack(peer, remoteVideo);
+
+    peer.addEventListener('datachannel', e=> {
         peer.dc = e.channel;
         peer.dc.addEventListener('open', () => {
-            console.log('Connection opened!(datachannel) ')
+            console.log('connection opened')
         });
-        peer.dc.addEventListener('message', dcOnMessage);
+        peer.dc.addEventListener('message',dcOnMessage);
 
-        mapPeers[peerUsername] = [peer, peer.dc]
+        /* 접속자 명단  */
+        mapPeers[peerUsername] = [peer, peer.dc];
     });
-
     /* 접속자 삭제하기 */
     peer.addEventListener('iceconnectionstatechange', () => {
         var iceConnectionState = peer.iceConnectionState;
-        console.log("여기 1")
         if(iceConnectionState === 'failed' || iceConnectionState === 'disconnected' || iceConnectionState === 'closed'){
-            console.log("여기 2")
             delete mapPeers[peerUsername];
 
-            if(iceConnectionState !== 'closed'){
+            if(iceConnectionState != 'closed'){
                 peer.close();
             }
 
@@ -254,6 +262,8 @@ function createAnswerer(offer, peerUsername, receiver_channel_name){
     peer.addEventListener('icecandidate', (event) => {
         if(event.candidate){
             console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
+
+            return;
         }
         sendSignal('new-answer', {
             'sdp': peer.localDescription,
@@ -263,15 +273,17 @@ function createAnswerer(offer, peerUsername, receiver_channel_name){
 
     peer.setRemoteDescription(offer)
         .then(() => {
-            console.log('Remote description set successfully for %s', peerUsername);
+            console.log('Remote description set successfully for %s',peerUsername);
 
             return peer.createAnswer();
         })
         .then(a => {
-            console.log('Answer Created!');
+            console.log('Answer created!');
 
-            console.log(peer.setLocalDescription(a));
+            peer.setLocalDescription(a);
         })
+
+
 }
 
 /* 비디오 오디오 */
@@ -324,6 +336,7 @@ var userMedia = navigator.mediaDevices.getUserMedia(constraints)
     });
 
 
+/* json 묶어주고 보내는 함수 */
 function sendSignal(action, message){
     var jsonStr = JSON.stringify({
         'peer': username,

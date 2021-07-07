@@ -21,12 +21,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         print('Disconnected!')
 
     async def receive(self, text_data):
-        print('실행되라!')
         receive_dict = json.loads(text_data)
         message = receive_dict['message']
         action = receive_dict['action']
-        print(action)
         if (action == 'new-offer') or (action == 'new-answer'):
+            print('channel_layer!')
             receive_channel_name = receive_dict['message']['receiver_channel_name']
 
             receive_dict['message']['receiver_channel_name'] = self.channel_name
@@ -40,17 +39,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
             return
-        else:
-            receive_dict['message']['receiver_channel_name'] = self.channel_name
-            receive_channel_name = receive_dict['message']['receiver_channel_name']
-            await self.channel_layer.send(
-                receive_channel_name,
-                {
-                    'type': 'send_sdp',
-                    'receive_dict': receive_dict
-                }
-            )
+
+        receive_dict['message']['receiver_channel_name'] = self.channel_name
+        print('group_send!')
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                'type': 'send_sdp',
+                'receive_dict': receive_dict
+            }
+        )
+
     async def send_sdp(self, event):
         receive_dict = event['receive_dict']
-
         await self.send(text_data=json.dumps(receive_dict))

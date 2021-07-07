@@ -17,6 +17,7 @@ import edumeet.routing
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangoProject.settings')
 '''
  크롬만이 아닌 여러 익스플로워 연동되게 하기 
+ 추가된 소켓 연동
 '''
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
