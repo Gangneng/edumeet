@@ -1,8 +1,10 @@
-import base64
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 import asyncio
-
+import base64
+import cv2
+import numpy as np
+import time
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -30,14 +32,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data=None, bytes_data=None):
         print('receive')
+        start = time.time()
         json_load = json.loads(text_data)
-        json_load['video']
-        print('여기', json_load['video'])
-
-
-
+        videodata = json_load['video']
+        datalist = list(videodata.values())
+        image = np.array(datalist).reshape(480, 640, 4)
+        print('receive end')
+        # print(image)
+        print("time : ", time.time() - start)
         await self.send(json.dumps({
-            "message": "websocket catch"
+            "message": "websocket image"
         }))
 
-        await asyncio.sleep(100)

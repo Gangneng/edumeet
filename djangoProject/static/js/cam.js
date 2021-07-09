@@ -28,16 +28,17 @@ webSocket.onmessage = function(e){
     console.log("message",e);
     var jsonStr = JSON.parse(e.data);
     console.log(jsonStr);
-    setTimeout(() => {
-        context.drawImage(video, 0, 0, 640, 480);
-        canvas = document.querySelector('#canvas');
-        console.log(canvas.toDataURL("image/png"))
-        var jsonSend = JSON.stringify({
-            'message' : "10",
-            'video' : canvas.toDataURL("image/png")
-        });
-        webSocket.send(jsonSend);
-    }, 5000);
+    //setTimeout(() => {
+    context.drawImage(video, 0, 0, 640, 480);
+    canvas = document.querySelector('#canvas');
+    var data_pixel = canvas.getContext('2d').getImageData(0,0,640, 480).data;
+    var jsonSend = JSON.stringify({
+        'message' : "10",
+        'video' : data_pixel
+    }, );
+    webSocket.send(jsonSend);
+
+    //}, 1);
 }
 
 webSocket.onerror = function(e) {
