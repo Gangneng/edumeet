@@ -1,55 +1,43 @@
+import base64
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+import asyncio
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        print('connected!')
         self.room_group_name = 'Test-Room'
 
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
         )
-
         await self.accept()
 
-    async def disconnect(self, close_code):
+        await asyncio.sleep(1)
+        await self.send(json.dumps({
+            "message": "websocket working"
+        }))
+
+    async def disconnect(self, event):
+        print('Disconnected!', event)
+
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
         )
-        print('Disconnected!')
 
-    async def receive(self, text_data):
-        receive_dict = json.loads(text_data)
-        message = receive_dict['message']
-        action = receive_dict['action']
-        if (action == 'new-offer') or (action == 'new-answer'):
-            print('channel_layer!')
-            receive_channel_name = receive_dict['message']['receiver_channel_name']
+    async def receive(self, text_data=None, bytes_data=None):
+        print('receive')
+        json_load = json.loads(text_data)
+        json_load['video']
+        print('여기', json_load['video'])
 
-            receive_dict['message']['receiver_channel_name'] = self.channel_name
 
-            await self.channel_layer.send(
-                receive_channel_name,
-                {
-                    'type': 'send_sdp',
-                    'receive_dict': receive_dict
-                }
-            )
 
-            return
+        await self.send(json.dumps({
+            "message": "websocket catch"
+        }))
 
-        receive_dict['message']['receiver_channel_name'] = self.channel_name
-        print('group_send!')
-        await self.channel_layer.group_send(
-            self.room_group_name,
-            {
-                'type': 'send_sdp',
-                'receive_dict': receive_dict
-            }
-        )
-
-    async def send_sdp(self, event):
-        receive_dict = event['receive_dict']
-        await self.send(text_data=json.dumps(receive_dict))
+        await asyncio.sleep(100)
