@@ -6,65 +6,313 @@ var mapPeers = {};
 var usernameInput = document.querySelector('#username');
 var btnJoin = document.querySelector('#btn-join');
 
+var webSocket;
 var username;
+var channel_name;
+var My_data;
+var videoboard;
+var videoStream = new MediaStream();
+var videodata
+var btnSendMsg = document.querySelector('#btn-send-msg');
+var messageList = document.querySelector('#message-list')
 
-console.log(window.location);
-var loc = window.location;
-var wsStart = 'ws://';
-if (loc.protocol == 'https://'){
-    wsStart = 'wss://';
+const servers = {
+    iceservers: [
+        {
+            urls: ['stun:stun1.1.google.com:19302','stun:stun2.1.google.com:19302'],
+        },
+    ],
+    iceCandidatePoolSize: 10,
 }
 
-var endPoint = wsStart + loc.host + loc.pathname + "ws/";
+// 비디오 관련 정리
+const localVideo = document.querySelector('#local-video');
+var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true});
+const btnToggleAudio = document.querySelector('#btn-toggle-audio');
+const btnToggleVideo = document.querySelector('#btn-toggle-video');
 
 
-var webSocket = new WebSocket(endPoint);
-
-webSocket.onopen = function(e) {
-    console.log("open", e)
-}
-
-webSocket.onmessage = function(e){
-    console.log("message",e);
-    var jsonStr = JSON.parse(e.data);
-    console.log(jsonStr);
-    //setTimeout(() => {
-    context.drawImage(video, 0, 0, 640, 480);
-    canvas = document.querySelector('#canvas');
-    var data_pixel = canvas.getContext('2d').getImageData(0,0,640, 480).data;
-    var jsonSend = JSON.stringify({
-        'message' : "10",
-        'video' : data_pixel
-    }, );
-    webSocket.send(jsonSend);
-
-    //}, 1);
-}
-
-webSocket.onerror = function(e) {
-    console.log("error", e)
-}
-webSocket.onclose = function(e) {
-    console.log("close", e)
+function main() {
+    btnJoin.addEventListener('click', ()=> {
+        username = usernameInput.value;
+        usernameInput.style.visibility = "hidden";
+        btnJoin.style.visibility = "hidden";
+        makeSocket();
+    });
 }
 
 // 비디오 만들기
-const video = document.querySelector("#local-video")
-const videodata = navigator.mediaDevices.getUserMedia({video: true, audio: false})
-    .then(mediaStream => {
-        video.srcObject = mediaStream
-        video.play()
-    })
-    .catch(error => {
-        console.log('Error :', error)
-    })
+// function makeMyVideo() {
+//     var audioTracks = mediaStream.getAudioTracks();
+//     var videoTracks = mediaStream.getVideoTracks();
+//     audioTracks[0].enabled = true;
+//     videoTracks[0].enabled = true;
+//
+//     btnToggleAudio.addEventListener('click', () => {
+//     audioTracks[0].enabled = !audioTracks[0].enabled;
+//     if(audioTracks[0].enabled){
+//         btnToggleAudio.innerHTML = 'Audio Mute';
+//         return;
+//     }
+//     btnToggleAudio.innerHTML = 'Audio Unmute'
+//     });
+//
+//     btnToggleVideo.addEventListener('click', () => {
+//     videoTracks[0].enabled = !videoTracks[0].enabled;
+//     if(videoTracks[0].enabled){
+//         btnToggleVideo.innerHTML = 'Video Off';
+//         return;
+//     }
+//     btnToggleVideo.innerHTML = 'Video On'
+//     });
+// }
 
-var canvas = document.querySelector('#canvas');
-var context = canvas.getContext('2d');
-var videos = document.querySelector('#video');
 
-context.drawImage(video, 0, 0, 640, 480);
+function makeSocket () {
+    var loc = window.location;
+    var wsStart = 'ws://';
+    if (loc.protocol == 'https://') {
+        wsStart = 'wss://';
+    }
+    var endPoint = wsStart + loc.host + loc.pathname + "ws/";
+    webSocket = new WebSocket(endPoint);
+    // 시작 되면 최초 센드하기
+    webSocket.onopen = function (e) {
+        console.log("open", e);
+        My_data = {
+            'user_name': username,
+            'room_group_name': 'Test-Room'
+        }
+        var jsonSend = JSON.stringify({
+            'send_type' : 'new_socket_opened',
+            'peer_data': My_data,
+        });
+        webSocket.send(jsonSend);
+    }
+    //
+    webSocket.onmessage = function (e) {
+        var jsonDic = JSON.parse(e.data);
+        var peer_data = jsonDic['peer_data'];
+        if (username == peer_data['user_name']) {
+            console.log('Same username: ', jsonDic)
+            return;
+        }
+        var send_type = jsonDic['send_type'];
+        if (send_type == 'websocket accepted!'){
+            My_data['channel_name'] = jsonDic['peer_data']['channel_name'];
+            console.log('send_type: websocket accepted!', My_data);
+            return;
+        }
+        if (send_type == 'new_socket_opened'){
+            newSocketOffer(peer_data);
+            console.log('send_type: new_socket_opened');
+            return;
+        }
+        if (send_type == 'icecandidate_offer'){
+            console.log('send_type: icecandidate_offer');
+            newSocketAnswer(jsonDic['sdp'], peer_data, jsonDic['receiver_peer']['channel_name'])
+            return;
+        }
+        if (send_type == 'icecandidate_answer'){
+            console.log('send_type: icecandidate_answer');
+            var answer = jsonDic['sdp'];
+            var peer = mapPeers[peer_data['user_name']][0];
+            peer.setRemoteDescription(answer)
+                .then(console.log('work done'));
+            return;
+        }
+        if (send_type == ''){
+            console.log('send_type: Null');
+        }
+    }
 
+    webSocket.onerror = function (e) {
+        console.log("error", e);
+    }
+    webSocket.onclose = function (e) {
+        console.log("close", e);
+    }
+}
+async function newSocketOffer(peer_data) {
+    // 여기 는 로컬 ip만 가능 다른 ip와 통신하려면 턴 서버 스턴서버를 적용해야함
+    var peer = new RTCPeerConnection(servers);
+    localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
+
+    localStream.getTracks().forEach((track) => {
+        peer.addTrack(track, localStream);
+    });
+
+
+    var dc = peer.createDataChannel('channel');
+    dc.onopen = function (e) {
+        console.log('뭔가 전해짐!');
+    }
+    // 이건 메세지
+    dc.onmessage = function (e) {
+        var message = e.data;
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(message));
+        messageList.appendChild(li);
+    }
+
+    // 이함수는 html에 VIdeo 넣을 공간만 만듬
+    var remoteVideo = createVideo(peer_data['user_name']);
+    // 이함수는  VIdeo 넣을 공간에 peer를 연결함
+    var remoteStream = new MediaStream()
+    peer.ontrack = event => {
+        event.streams[0].getTracks().forEach(track =>
+            remoteStream.addTrack(track))
+    }
+    remoteVideo.srcObject = remoteStream;
+
+    mapPeers[peer_data['user_name']] = [peer, dc];
+
+    peer.oniceconnectionstatechange = function (e) {
+        var iceCS = peer.iceConnectionState;
+
+        if(iceCS === 'failed' || iceCS ==='disconnected' || iceCS === 'closed'){
+            delete mapPeers[peer_data['user_name']];
+            if(iceCS != 'closed') {
+                peer.close();
+            }
+            removeVideo(remoteVideo);
+        }
+    }
+    peer.onicecandidate = function (e){
+        if(e.candidate){
+            console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
+            return;
+        }
+
+        var jsonSend = JSON.stringify({
+            'send_type' : 'icecandidate_offer',
+            'peer_data': My_data,
+            'sdp': peer.localDescription,
+            'receiver_peer':peer_data,
+        });
+        webSocket.send(jsonSend);
+    }
+
+    peer.createOffer()
+        .then(o => peer.setLocalDescription(o))
+        .then(() => {
+            console.log('Local description set successfully');
+        });
+}
+async function newSocketAnswer(sdp, peer_data, receiver_channel_name){
+    // 여기 는 로컬 ip만 가능 다른 ip와 통신하려면 턴 서버 스턴서버를 적용해야함
+    var peer = new RTCPeerConnection(servers);
+    localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
+
+    localStream.getTracks().forEach((track) => {
+        peer.addTrack(track, localStream);
+    });
+
+
+    // 이건 메세지
+    peer.ondatachannel = function (e){
+        peer.dc = e.channel;
+        peer.dc.onopen = function (e) {
+            console.log('Video answer Connected opened!');
+        }
+        peer.dc.onmessage = function (e) {
+            var message = e.data;
+            var li = document.createElement('li');
+            li.appendChild(document.createTextNode(message));
+            messageList.appendChild(li);
+        }
+    }
+
+    // 이함수는 html에 VIdeo 넣을 공간만 만듬
+    var remoteVideo = createVideo(peer_data['user_name']);
+    // 이함수는  VIdeo 넣을 공간에 peer를 연결함
+    var remoteStream = new MediaStream()
+    peer.ontrack = event => {
+        event.streams[0].getTracks().forEach(track =>
+            remoteStream.addTrack(track))
+    }
+
+    remoteVideo.srcObject = remoteStream;
+
+    mapPeers[peer_data['user_name']] = [peer, peer.dc];
+
+    peer.oniceconnectionstatechange = function (e) {
+        var iceCS = peer.iceConnectionState;
+        console.log('설마', iceCS)
+        if(iceCS === 'failed' || iceCS ==='disconnected' || iceCS === 'closed'){
+            delete mapPeers[peer_data['user_name']];
+            if(iceCS != 'closed') {
+                peer.close();
+            }
+            removeVideo(remoteVideo);
+        }
+    }
+    peer.onicecandidate = function (e){
+        if(e.candidate){
+            console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
+            return;
+        }
+
+        var jsonSend = JSON.stringify({
+            'send_type' : 'icecandidate_answer',
+            'peer_data': My_data,
+            'sdp': peer.localDescription,
+            'receiver_peer':peer_data,
+        });
+        webSocket.send(jsonSend);
+    }
+    peer.setRemoteDescription(sdp)
+        .then(() => {
+            console.log('Remote description set successfully for %s', peer_data['user_name']);
+
+            return peer.createAnswer();
+        })
+        .then((a) => {
+            console.log('Answer created!');
+            peer.setLocalDescription(a);
+        })
+}
+
+function createVideo(peer_username){
+    var videoContainer = document.querySelector('#video-container');
+    var remoteVideo = document.createElement('video');
+
+    remoteVideo.id = peer_username + '-video';
+    remoteVideo.autoplay = true;
+    remoteVideo.playsInline = true;
+    var videoWrapper = document.createElement('div');
+    videoContainer.appendChild(videoWrapper);
+    videoWrapper.appendChild(remoteVideo);
+
+    return remoteVideo;
+}
+function setOnTrack(peer, remoteVideo){
+    var remoteStream = new MediaStream();
+    peer.onTrack = async function (e) {
+        e.stream[0].getTracks().forEach(track => {
+            remoteStream.addTrack(track)
+        })
+    }
+    remoteVideo.srcObject = remoteStream;
+}
+function removeVideo(div_video){
+    var videoWrapper = videoboard.parentNode;
+    videoWrapper.parentNode.removeChild(videoWrapper);
+}
+
+// 함수 이미지 보내기
+function sendImgMaker(e) {
+    context.drawImage(videoboard, 0, 0, 640, 480);
+    canvas = document.querySelector('#canvas');
+    var data_pixel = canvas.getContext('2d').getImageData(0, 0, 640, 480).data;
+    var jsonSend = JSON.stringify({
+        'message': "10",
+        'video': data_pixel
+    },);
+    return jsonSend;
+}
+
+main()
 // /* join and make socket */
 //
 // var username;

@@ -12,19 +12,16 @@
             <div class="col-6 mx-auto mt-5">
                 <h1 id="app"> {{ text }}</h1>
             </div>
+            <butten id="btn_mmute" >   버튼입니다 </butten>
         </div>
     </div>
     <script>
-
-        var socket = new WebSocket('ws://localhost:8000/ws/');
+        var socket = new WebSocket('ws://localhost:8000/ws/video/');
         socket.onmessage = function(event){
-            var data = JSON.parse(event.data);
             console.log(data);
-            setTimeout(function(){
-                socket.send(JSON.stringify({'message':'get_video'}))
-            }, 3000);
 
         }
+
 
         socket.onopen = function(event){
             console.log("open", event)
