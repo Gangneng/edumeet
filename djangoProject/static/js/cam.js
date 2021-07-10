@@ -11,8 +11,6 @@ var username;
 var channel_name;
 var My_data;
 var videoboard;
-var videoStream = new MediaStream();
-var videodata
 var btnSendMsg = document.querySelector('#btn-send-msg');
 var messageList = document.querySelector('#message-list')
 
@@ -26,11 +24,43 @@ const servers = {
 }
 
 // 비디오 관련 정리
-const localVideo = document.querySelector('#local-video');
-var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true});
+var localVideo = document.querySelector('#local-video');
 const btnToggleAudio = document.querySelector('#btn-toggle-audio');
 const btnToggleVideo = document.querySelector('#btn-toggle-video');
+var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
+    .then(stream => {
+        localStream = stream;
+        localVideo.srcObject = localStream;
+        localVideo.muted = true;
 
+        var audioTracks = stream.getAudioTracks();
+        var videoTracks = stream.getVideoTracks();
+
+        audioTracks[0].enabled = false;
+        videoTracks[0].enabled = true;
+
+        /* 오디오 비디오 키고 끄기 버튼 */
+        btnToggleAudio.addEventListener('click', () => {
+            audioTracks[0].enabled = !audioTracks[0].enabled;
+            if(audioTracks[0].enabled){
+                btnToggleAudio.innerHTML = 'Audio Mute';
+                return;
+            }
+            btnToggleAudio.innerHTML = 'Audio Unmute'
+        });
+
+        btnToggleVideo.addEventListener('click', () => {
+            videoTracks[0].enabled = !videoTracks[0].enabled;
+            if(videoTracks[0].enabled){
+                btnToggleVideo.innerHTML = 'Video Off';
+                return;
+            }
+            btnToggleVideo.innerHTML = 'Video On'
+        });
+    })
+    .catch(error => {
+        console.log('Error accessing media devices.', error);
+    });
 
 function main() {
     btnJoin.addEventListener('click', ()=> {
@@ -42,32 +72,6 @@ function main() {
 }
 
 // 비디오 만들기
-// function makeMyVideo() {
-//     var audioTracks = mediaStream.getAudioTracks();
-//     var videoTracks = mediaStream.getVideoTracks();
-//     audioTracks[0].enabled = true;
-//     videoTracks[0].enabled = true;
-//
-//     btnToggleAudio.addEventListener('click', () => {
-//     audioTracks[0].enabled = !audioTracks[0].enabled;
-//     if(audioTracks[0].enabled){
-//         btnToggleAudio.innerHTML = 'Audio Mute';
-//         return;
-//     }
-//     btnToggleAudio.innerHTML = 'Audio Unmute'
-//     });
-//
-//     btnToggleVideo.addEventListener('click', () => {
-//     videoTracks[0].enabled = !videoTracks[0].enabled;
-//     if(videoTracks[0].enabled){
-//         btnToggleVideo.innerHTML = 'Video Off';
-//         return;
-//     }
-//     btnToggleVideo.innerHTML = 'Video On'
-//     });
-// }
-
-
 function makeSocket () {
     var loc = window.location;
     var wsStart = 'ws://';
@@ -202,8 +206,6 @@ async function newSocketOffer(peer_data) {
 async function newSocketAnswer(sdp, peer_data, receiver_channel_name){
     // 여기 는 로컬 ip만 가능 다른 ip와 통신하려면 턴 서버 스턴서버를 적용해야함
     var peer = new RTCPeerConnection(servers);
-    localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
-
     localStream.getTracks().forEach((track) => {
         peer.addTrack(track, localStream);
     });
@@ -296,7 +298,7 @@ function setOnTrack(peer, remoteVideo){
     remoteVideo.srcObject = remoteStream;
 }
 function removeVideo(div_video){
-    var videoWrapper = videoboard.parentNode;
+    var videoWrapper = div_video.parentNode;
     videoWrapper.parentNode.removeChild(videoWrapper);
 }
 
@@ -313,6 +315,8 @@ function sendImgMaker(e) {
 }
 
 main()
+
+
 // /* join and make socket */
 //
 // var username;
