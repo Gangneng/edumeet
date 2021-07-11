@@ -10,9 +10,9 @@ var webSocket;
 var username;
 var channel_name;
 var My_data;
-var videoboard;
 var btnSendMsg = document.querySelector('#btn-send-msg');
-var messageList = document.querySelector('#message-list')
+var messageList = document.querySelector('#message-list');
+var messageInput = document.querySelector('#chat_input');
 
 const servers = {
     iceservers: [
@@ -120,6 +120,11 @@ function makeSocket () {
             var peer = mapPeers[peer_data['user_name']][0];
             peer.setRemoteDescription(answer)
                 .then(console.log('work done'));
+            return;
+        }
+        if (send_type == 'send_image'){
+            console.log('send_type: send_image');
+            console.log(jsonDic)
             return;
         }
         if (send_type == ''){
@@ -293,15 +298,6 @@ function createVideo(peer_username){
 
     return remoteVideo;
 }
-function setOnTrack(peer, remoteVideo){
-    var remoteStream = new MediaStream();
-    peer.onTrack = async function (e) {
-        e.stream[0].getTracks().forEach(track => {
-            remoteStream.addTrack(track)
-        })
-    }
-    remoteVideo.srcObject = remoteStream;
-}
 function removeVideo(div_video){
     var videoWrapper = div_video;
     videoWrapper.parentNode.removeChild(videoWrapper);
@@ -309,14 +305,49 @@ function removeVideo(div_video){
 
 // 함수 이미지 보내기
 function sendImgMaker(e) {
-    context.drawImage(videoboard, 0, 0, 640, 480);
-    canvas = document.querySelector('#canvas');
-    var data_pixel = canvas.getContext('2d').getImageData(0, 0, 640, 480).data;
+    const canvas = document.createElement("canvas");
+    const video = document.getElementById("#local-video");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    var data_pixel = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
     var jsonSend = JSON.stringify({
-        'message': "10",
-        'video': data_pixel
+        'send_type' : 'icecandidate_offer',
+        'peer_data': My_data,
+        'sdp': peer.localDescription,
+        'receiver_peer':peer_data,
     },);
     return jsonSend;
+}
+
+/* 채팅 */
+btnSendMsg.addEventListener('click', sendMsgOnclick);
+
+function  sendMsgOnclick(){
+    var message = messageInput.value;
+
+    var li = document.createElement('li');
+    li.appendChild(document.createTextNode('Me :' + message));
+    messageList.appendChild(li);
+
+    var dataChannels = getDataChannels();
+
+    message = username + ": " +message;
+
+    for(index in dataChannels){
+        dataChannels[index].send(message);
+    }
+    messageInput.value = "";
+}
+
+function getDataChannels(){
+    var dataChannels = [];
+
+    for(peerUsername in mapPeers){
+        var dataChannel= mapPeers[peerUsername][1];
+        dataChannels.push(dataChannel);
+    }
+    return dataChannels
 }
 
 main()
