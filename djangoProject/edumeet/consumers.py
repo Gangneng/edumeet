@@ -76,23 +76,39 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     'send_data': json.dumps(json_load)
                 }
             )
+
+        if send_type == 'send_image':
+            print('send_type: send_image')
+            start = time.time()
+            videodata = json_load['video']
+            datalist = list(videodata.values())
+            image = np.array(datalist).reshape(480, 640, 4)
+            print('receive end')
+            print(image[0][0])
+            print("time : ", time.time() - start)
+            await self.send(json.dumps(
+                json_load
+            ))
+
+
+
         if send_type == '':
             print('send_type: Null')
 
     async def send_group(self, event):
         print(event['send_data'])
         await self.send(event['send_data'])
-
 #
-# def sendimage(self):
-#         start = time.time()
-#         videodata = json_load['video']
-#         datalist = list(videodata.values())
-#         image = np.array(datalist).reshape(480, 640, 4)
-#         print('receive end')
-#         # 4개인 이유 RGB 투명도
-#         # print(image)
-#         print("time : ", time.time() - start)
-#         self.send(json.dumps({
-#             "message": "websocket image"
+# #
+#     async def sendimage(self):
+#             start = time.time()
+#             videodata = json_load['video']
+#             datalist = list(videodata.values())
+#             image = np.array(datalist).reshape(480, 640, 4)
+#             print('receive end')
+#             # 4개인 이유 RGB 투명도
+#             # print(image)
+#             print("time : ", time.time() - start)
+#             self.send(json.dumps({
+#                 "message": "websocket image"
 #         }))
