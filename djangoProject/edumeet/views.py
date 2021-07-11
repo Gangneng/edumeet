@@ -4,5 +4,5 @@ from django.shortcuts import render
 
 def main_cam(request):
     context = {}
-    return render(request, "cam/main.html", context=context)
+    return render(request, "cam/player.html", context=context)
 

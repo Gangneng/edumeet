@@ -8,16 +8,55 @@
     <title>Edu Meet</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/cam.css' %}">
     <script defer type="text/javascript" src="{% static 'js/cam.js' %}"></script>
+    <script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script defer nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
+    <!-- 싸이드 바 -->
+    <div class="navigation">
+        <ul>
+            <li class="nv_list">
+                <a href="#">
+                    <span class="nv_icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="nv_title">Home</span>
+                </a>
+            </li>
+            <li class="nv_list">
+                <a href="#">
+                    <span class="nv_icon"><ion-icon name="radio-outline"></ion-icon></span>
+                    <span class="nv_title">Live classroom</span>
+                </a>
+            </li>
+            <li class="nv_list">
+                <a href="#">
+                    <span class="nv_icon"><ion-icon name="book-outline"></ion-icon></span>
+                    <span class="nv_title">Study</span>
+                </a>
+            </li>
+            <li class="nv_list">
+                <a href="#">
+                    <span class="nv_icon"><ion-icon name="calendar-outline"></ion-icon></span>
+                    <span class="nv_title">Calender</span>
+                </a>
+            </li>
+            <li class="nv_list">
+                <a href="#">
+                    <span class="nv_icon"><ion-icon name="person-outline"></ion-icon></span>
+                    <span class="nv_title">Calender</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 메인 작용 -->
     <h3 id="label-username">username</h3>
     <div>
         <input id="username"><button id="btn-join"> Join Room</button>
     </div>
     <div class="main-grid-container">
+        <div><video id="big-main-video" width="640" height="480" style="background-color: cornflowerblue">main video</video></div>
         <div id="video-container">
             <div>
-                <video id="local-video" width="640" height="480" style="float:left;" autoplay playsinline></video>
+                <video id="local-video" width="640" height="480" style="float:right;" autoplay playsinline></video>
             </div>
             <canvas id="canvas" width="640" height="480"></canvas>
             <button id="btn-toggle-audio">마이크</button>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{%  load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Hacker Ton">
+
+    <title>Hacker Ton</title>
+
+    <!-- CSS STYLE -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cam.css' %}">
+
+    <!-- Script -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script defer type="text/javascript" src="{% static 'js/cam.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body style="overflow-x:hidden; overflow-y:auto;">
+    <div class="site_board">
+        <div class="navigation">
+            <ul>
+                <li class="nv_list nv_active">
+                    <a href="#">
+                        <span id='nv_icon'>
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span id='nv_title'>Home</span>
+                    </a>
+                </li>
+                <li class="nv_list">
+                    <a href="#">
+                        <span id='nv_icon'>
+                            <ion-icon name="person-outline"></ion-icon>
+                        </span>
+                        <span id='nv_title'>User</span>
+                    </a>
+                </li>
+                <li class="nv_list">
+                    <a href="#">
+                        <span id='nv_icon'>
+                            <ion-icon name="book-outline"></ion-icon>
+                        </span>
+                        <span id='nv_title'>Study</span>
+                    </a>
+                </li>
+                <li class="nv_list">
+                    <a href="#">
+                        <span id='nv_icon'>
+                            <ion-icon name="radio-outline"></ion-icon>
+                        </span>
+                        <span id='nv_title'>Live Class</span>
+                    </a>
+                </li>
+                <li class="nv_list">
+                    <a href="#">
+                        <span id='nv_icon'>
+                            <ion-icon name="calendar-outline"></ion-icon>
+                        </span>
+                        <span id='nv_title'>Calendar</span>
+                    </a>
+                </li>
+                <li class="nv_list">
+                    <a href="#">
+                        <span id='nv_icon'>
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span id='nv_title'>Log Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="board">
+            <div class="left_board">
+                <div id="left_top_board">
+                    <div id='study_name'>
+                        <p id='study_title'>1교시 수학 수업시간</p>
+                        <div id='study_teacher'>담당쌤 : </div>
+                    </div>
+                    <div id="main_video"> 여기 메인 비디오<div style=' height: 300px ;width: 100px;background:  #fff; object-fit: cover;'>실험</div>
+                    </div>
+                </div>
+                <div id="left_botten_board">
+                    <div class="chating"> 채팅 장소
+                        <div id="chat_list">
+                            <lu>
+                                <li>
+                                    <p>선생님 : 떠든사람</p>
+                                </li>
+                                <li>
+                                    <p>누구누구 : 보노보노야</p>
+                                </li>
+                                <li>
+                                    <p>나다 : 여기서 끝이야</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                                <li>
+                                    <p>검은수염 : 제하하하하하하</p>
+                                </li>
+                            </lu>
+                        </div>
+                        <div id="chat_send">
+                            <input type="text"  id="chat_input" placeholder="유져 아이디 : ">
+                            <div id="btn-send-msg">버튼</div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+            <div class="right_board">
+                <div class="connect_video">
+                   <div id='move_up'>▲</div>
+                   <div class='sdp_videos'>
+                       <video id="localvideo" autoplay playsinline></video>
+                   </div>
+                    <canvas id="canvas" width="640" height="480"></canvas>
+                   <div id='move_down'>▼</div>
+                    <button id="btn-toggle-audio">마이크</button>
+                    <button id="btn-toggle-video">Video Off</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
