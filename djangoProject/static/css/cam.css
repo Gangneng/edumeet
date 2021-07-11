@@ -14,6 +14,15 @@
     font-family: 'Poppins', sans-serif;
     
 }
+.intopage {
+    position: fixed;
+    display: block;
+    text-align: center;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+}
+
 .site_board {
     display: flex;
     justify-content: left;
@@ -248,8 +257,18 @@
 .board .right_board .connect_video .sdp_videos::-webkit-scrollbar {
     display: none;
 }
+.board .right_board .connect_video .sdp_videos #local-video{
+    position: relative;
+    background-color: black;
+    margin: 1%;
+    border: 3px solid white;
+    border-radius: 3px;
+    object-fit:contain;
+    height: 90%;
+    width: 16vw;
 
-.board .right_board .connect_video .sdp_videos #localvideo{
+}
+.board .right_board .connect_video .sdp_videos #work-video{
     position: relative;
     background-color: black;
     margin: 1%;

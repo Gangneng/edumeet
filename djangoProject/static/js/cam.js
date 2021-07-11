@@ -32,22 +32,8 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
         localStream = stream;
         localVideo.srcObject = localStream;
         localVideo.muted = true;
-
-        var audioTracks = stream.getAudioTracks();
         var videoTracks = stream.getVideoTracks();
-
-        audioTracks[0].enabled = false;
-        videoTracks[0].enabled = true;
-
-        /* 오디오 비디오 키고 끄기 버튼 */
-        btnToggleAudio.addEventListener('click', () => {
-            audioTracks[0].enabled = !audioTracks[0].enabled;
-            if(audioTracks[0].enabled){
-                btnToggleAudio.innerHTML = 'Audio Mute';
-                return;
-            }
-            btnToggleAudio.innerHTML = 'Audio Unmute'
-        });
+        var audioTracks = stream.getAudioTracks();
 
         btnToggleVideo.addEventListener('click', () => {
             videoTracks[0].enabled = !videoTracks[0].enabled;
@@ -57,6 +43,16 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
             }
             btnToggleVideo.innerHTML = 'Video On'
         });
+
+        btnToggleAudio.addEventListener('click', () => {
+            audioTracks[0].enabled = !audioTracks[0].enabled;
+            if(audioTracks[0].enabled){
+                btnToggleVideo.innerHTML = 'audio Off';
+                return;
+            }
+            btnToggleVideo.innerHTML = 'audio On'
+        });
+
     })
     .catch(error => {
         console.log('Error accessing media devices.', error);
@@ -67,6 +63,7 @@ function main() {
         username = usernameInput.value;
         usernameInput.style.visibility = "hidden";
         btnJoin.style.visibility = "hidden";
+        document.querySelector(".intopage").style.visibility = "hidden"
         makeSocket();
     });
 }
@@ -276,15 +273,23 @@ async function newSocketAnswer(sdp, peer_data, receiver_channel_name){
 }
 
 function createVideo(peer_username){
-    var videoContainer = document.querySelector('#video-container');
+    var videoContainer = document.querySelector('.sdp_videos');
     var remoteVideo = document.createElement('video');
 
-    remoteVideo.id = peer_username + '-video';
+    remoteVideo.id = peer_username + '-video'+ ' work-video';
     remoteVideo.autoplay = true;
     remoteVideo.playsInline = true;
-    var videoWrapper = document.createElement('div');
-    videoContainer.appendChild(videoWrapper);
-    videoWrapper.appendChild(remoteVideo);
+    remoteVideo.style =
+        "position: relative; " +
+        "background-color: black; "+
+        "margin: 1%; "+
+        "border: 3px solid white; "+
+        "border-radius: 3px; " +
+        "object-fit:contain; " +
+        "height: 90%; " +
+        "width: 16vw; "
+    remoteVideo.muted = true;
+    videoContainer.appendChild(remoteVideo);
 
     return remoteVideo;
 }
@@ -298,7 +303,7 @@ function setOnTrack(peer, remoteVideo){
     remoteVideo.srcObject = remoteStream;
 }
 function removeVideo(div_video){
-    var videoWrapper = div_video.parentNode;
+    var videoWrapper = div_video;
     videoWrapper.parentNode.removeChild(videoWrapper);
 }
 

@@ -19,6 +19,9 @@
 </head>
 
 <body style="overflow-x:hidden; overflow-y:auto;">
+    <div class="intopage">
+        <input id="username"><button id="btn-join"> Join Room</button>
+    </div>
     <div class="site_board">
         <div class="navigation">
             <ul>
@@ -164,13 +167,13 @@
                 <div class="connect_video">
                    <div id='move_up'>▲</div>
                    <div class='sdp_videos'>
-                       <video id="localvideo" autoplay playsinline></video>
+                       <video id="local-video" autoplay playsinline></video>
                    </div>
                     <canvas id="canvas" width="640" height="480"></canvas>
                    <div id='move_down'>▼</div>
-                    <button id="btn-toggle-audio">마이크</button>
-                    <button id="btn-toggle-video">Video Off</button>
                 </div>
+                <button id="btn-toggle-audio">마이크</button>
+                <button id="btn-toggle-video">Video Off</button>
             </div>
         </div>
     </div>
