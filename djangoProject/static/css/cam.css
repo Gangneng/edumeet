@@ -1,0 +1,308 @@
+:root {
+    --my-width : 30%; 
+    --my-height : 100vh;
+    --back-color : #3a3c3d;
+    --line-color : #4187f6;
+}
+
+/* sidebar bar */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+}
+.intopage {
+    position: fixed;
+    display: block;
+    text-align: center;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+}
+
+.site_board {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    min-height: var(--my-height);
+    background: var(--back-color);
+    color: white;
+    
+}
+.navigation {
+    position: relative;
+    height: var(--my-height);
+    width: 70px;
+    background: var(--back-color);
+    box-shadow: 10px 0 0 var(--line-color);
+    border-left: 10px solid var(--line-color);
+    overflow: hidden;
+    transition: width 0.5s;
+}
+.navigation:hover{
+    width: 300px;
+    
+}
+.navigation ul{ 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 40px;    
+}
+.navigation ul li{
+    position: relative;
+    list-style: none;
+    width: 100%;
+    border-top-left-radius:  15px;
+    border-bottom-left-radius: 15px;
+    
+}
+.navigation ul li.nv_active a::before{
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--back-color);
+    border-radius: 50%;
+    box-shadow: 10px 10px 0 var(--line-color);
+}
+.navigation ul li.nv_active a::after{
+    content: '';
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--back-color);
+    border-radius: 50%;
+    box-shadow: 10px -10px 0 var(--line-color);
+}
+.navigation ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+}
+.navigation ul li a #nv_icon {
+    position: relative;
+    display: block;
+    margin-left: 10px;
+    min-width: 40px;
+    height: 40px;
+    line-height: 45px;
+    text-align: center;
+}
+.navigation ul li a #nv_icon ion-icon {
+    position: relative;
+    font-size: 25px;
+    z-index: 1;
+    
+}
+.navigation ul li a #nv_title {
+    position: relative;
+    display: block;
+    padding-left: 10px;
+    height: 40px;
+    line-height: 35px;
+    white-space: nowrap;
+    font-size: 15px;
+}
+.navigation ul li.nv_active {
+    background: var(--line-color);         
+}
+
+
+/* board */
+.board {
+    padding-left: 20px;
+    position: relative;
+    width: 100%;
+    height: var(--my-height);
+}
+
+.board .left_board {
+    position: relative;
+    width: 70vw;
+    height: 0;
+}
+.board .left_board #left_top_board {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}
+.board .left_board #left_top_board #study_name {
+    position: relative;
+    border: 3px solid var(--line-color);
+    border-radius: 9px;
+    width: 95%;
+    margin: 2.5%;
+    padding: 10px;
+    line-height: 30px;
+    
+}
+.board .left_board #left_top_board #main_video {
+    position: relative;
+    border: 3px solid var(--line-color);
+    border-radius: 9px;
+    width: 95%;
+    margin: 2.5%;
+    object-fit: cover;
+    padding: 10px;
+    
+}
+
+.board .left_board #left_botten_board {
+    position: relative;
+    height: auto;
+}
+.board .left_board #left_botten_board .chating  {
+    width: 95%;
+    margin: 2.5%;
+    max-height: 40vh;
+}
+.board .left_board #left_botten_board .chating #chat_list{
+    position: relative;
+    background-color: #fffffd;
+    color: black;
+    border: 2px solid var(--line-color) ;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 25px;
+    margin-bottom: 10px;
+    max-height: 20vh;
+    margin-top: 10px;
+    overflow: auto;
+}
+.board .left_board #left_botten_board .chating #chat_send{
+    position: relative;
+}
+.board .left_board #left_botten_board .chating #chat_send #chat_input{
+    position: relative;
+    border: 3px solid var(--line-color);
+    background-color: #fffffd;
+    border-radius: 5px;
+    white-space: pre-line;
+    max-height: 10vh;
+    white-space: pre-line;
+    overflow: auto;
+    padding: 4px;
+    width: 80%
+}
+.board .left_board #left_botten_board .chating #chat_btn{
+    position: relative;
+    display: block;
+    float: right;
+    margin-right: 30px;
+    border: 3px solid var(--line-color);
+    border-radius: 10px; 
+    padding: 4px 15px;
+    
+}
+
+
+.board .right_board {
+    position: absolute;
+    left: 74vw;
+    width: 20%;
+}
+
+
+.board .right_board .connect_video #move_up{
+    background-color: var(--back-color);
+    text-align: center;
+    border: 1px solid var(--line-color);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: 0.5s;
+}
+.board .right_board .connect_video #move_up:hover {
+    background-color: white;
+    color: black;
+    
+}
+
+.board .right_board .connect_video #move_down{
+    background-color: var(--back-color);
+    text-align: center;
+    border: 1px solid var(--line-color);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: 0.5s;
+}
+.board .right_board .connect_video #move_down:hover {
+    position: relative;
+    background-color: white;
+    color: black;
+}
+
+.board .right_board .connect_video .sdp_videos {
+    background-color: #5b5d5f;
+    position: relative;
+    text-align: center;
+    max-height: 80vh;
+    overflow: auto;
+      object-fit: cover;
+    
+}
+.board .right_board .connect_video .sdp_videos::-webkit-scrollbar {
+    display: none;
+}
+.board .right_board .connect_video .sdp_videos #local-video{
+    position: relative;
+    background-color: black;
+    margin: 1%;
+    border: 3px solid white;
+    border-radius: 3px;
+    object-fit:contain;
+    height: 90%;
+    width: 16vw;
+
+}
+.board .right_board .connect_video .sdp_videos #work-video{
+    position: relative;
+    background-color: black;
+    margin: 1%;
+    border: 3px solid white;
+    border-radius: 3px;
+    object-fit:contain;
+    height: 90%;
+    width: 16vw;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
