@@ -315,11 +315,14 @@ function removeVideo(div_video){
 // 함수 이미지 보내기
 function sendImgMaker(e) {
 
-    const canvas = document.createElement("canvas");
-    canvas.width = localVideo.videoWidth;
-    canvas.height = localVideo.videoHeight;
-    canvas.getContext('2d').drawImage(localVideo, 0, 0, localVideo.videoWidth, localVideo.height);
+    var v = document.querySelector('#local-video');
+    var canvas = document.getElementById('localCanvas');
+    canvas.width = v.videoWidth;
+    canvas.height = v.videoHeight;
+    canvas.getContext('2d').drawImage(v, 0, 0);
+
     var data_pixel = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+    console.log(canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data);
     var jsonSend = JSON.stringify({
         'send_type' : 'send_image',
         'peer_data': My_data,
