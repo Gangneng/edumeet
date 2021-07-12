@@ -20,6 +20,15 @@ textarea:focus {
     font-family: 'Poppins', sans-serif;
     
 }
+
+
+
+.intopage {
+    position: absolute;
+    left: 300px;
+    z-index: 3;
+}
+
 .site_board {
     display: flex;
     justify-content: left;
