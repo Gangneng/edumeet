@@ -127,6 +127,7 @@ function startRecording(stream) {
 function main() {
     // 사이드바 설정
     sideBarActive();
+    
 
     btnJoin.addEventListener('click', ()=> {
         username = usernameInput.value;
@@ -424,6 +425,9 @@ function getDataChannels(){
     return dataChannels
 }
 
+// 사이드바 설정
+
+
 function sideBarActive(){
     function activateLink(){
         sidebar_list.forEach((item) =>
@@ -431,9 +435,30 @@ function sideBarActive(){
         this.classList.add('nv_active');
         var selectSideBar = this.querySelector('#nv_title').innerHTML
         console.log(selectSideBar);
+        boarderAcitve(selectSideBar);
     }
     sidebar_list.forEach((item) =>
     item.addEventListener('click', activateLink));
 }
-main()
 
+function boarderAcitve(selectSideBar){
+    document.querySelector('.intopage').classList.add('board_display');
+
+    var elements = document.querySelectorAll('.board').forEach((item) =>
+        item.classList.add('board_display'))
+    if (selectSideBar == "Home"){
+        document.querySelector('.board_home').classList.remove('board_display');
+    }
+    else if (selectSideBar == "User"){
+        document.querySelector('.board_user').classList.remove('board_display');
+    }
+    else if (selectSideBar == "Live Class"){
+        document.querySelector('.intopage').classList.remove('board_display');
+        document.querySelector('.board_Live').classList.remove('board_display');
+    }
+    if (selectSideBar == "Calendar"){
+        document.querySelector('.board_calendar').classList.remove('board_display');
+    }
+}
+
+main()

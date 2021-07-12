@@ -126,15 +126,22 @@ textarea:focus {
     background: var(--line-color);         
 }
 
-.board-home {
+
+/* */
+.board_display{
     display: none;
+}
+
+
+/* board home */
+.board_home {
     width: 100vw;
     height: var(--my-height);
     text-align: center;
     background-color: #333333;
-    transition: 3s
+    transition: 3s;
 }
-.board-home:hover {
+.board_home:hover {
     background-color: #aaaaaa;
 }
 
@@ -147,15 +154,14 @@ textarea:focus {
 /* board user */
 
 
-.board-user {
-    display: none;
+.board_user {
     position: relative;
     margin-left: 10px;
     width: 100vw;
     text-align: center;
 }
 
-.board-user .user-from {
+.board_user .user-from {
     position: relative;
     display: inline-block;    
     margin-left: 10px;
@@ -167,7 +173,7 @@ textarea:focus {
     text-align: left;
     font-size: 20px;
 }
-.board-user .user-from #user-from-title {
+.board_user .user-from #user-from-title {
     margin-top: 50px;
     text-align: center;
     font-size: 30px;
@@ -178,13 +184,13 @@ textarea:focus {
     
 }
 
-.board-user .user-from #user-from-top-left {
+.board_user .user-from #user-from-top-left {
     position: relative;
     display: inline-block;
     width: 60%;
 }
 
-.board-user .user-from #user-name {
+.board_user .user-from #user-name {
     position: relative;
     display: inline-block;
     margin-top: 30px;
@@ -195,7 +201,7 @@ textarea:focus {
     border-bottom-left-radius: 10px;
 }
 
-.board-user .user-from #user-name #input-user-name {
+.board_user .user-from #user-name #input-user-name {
     color: aliceblue;
     margin-left: 20px;
     height: 30px;
@@ -206,14 +212,14 @@ textarea:focus {
 }
 
 
-.board-user .user-from #user-info {
+.board_user .user-from #user-info {
     position: relative;
     padding-left: 30px;
     height: 30px;
     margin-top: 40px;
 }
 
-.board-user .user-from #tta-user-info {
+.board_user .user-from #tta-user-info {
     margin-left: 30px;
     padding-left: 10px;
     margin-top: 10px;
@@ -237,7 +243,7 @@ textarea:focus {
 }  
 
 
-.board-user .user-from #user-from-top-right {
+.board_user .user-from #user-from-top-right {
     position: absolute;
     display: inline-block;
     margin-top: 30px;
@@ -252,23 +258,23 @@ textarea:focus {
     text-align: center;
     transition: 1s;
 }
-.board-user .user-from #user-from-top-right:hover{
+.board_user .user-from #user-from-top-right:hover{
     filter: blur(2px);
     background-color: #6a6b6c;
 }
 
-.board-user .user-from #user-from-top-right img {
+.board_user .user-from #user-from-top-right img {
     transform: translateY(35%);
 }
 
-.board-user #user-from-botten #user-from-liner1 {
+.board_user #user-from-botten #user-from-liner1 {
     border : 1px solid ;
     margin: 30px;
     border-radius: 10px;
     
 }
 
-.board-user #user-from-botten #user-from-liner2 {
+.board_user #user-from-botten #user-from-liner2 {
     border: 1px dashed ;
     margin: 2px;
     padding: 15px;
@@ -283,12 +289,12 @@ textarea:focus {
     max-height: 300px;
     overflow-y: scroll;   
 }
-.board-user #user-from-botten #user-from-liner2::-webkit-scrollbar{ 
+.board_user #user-from-botten #user-from-liner2::-webkit-scrollbar{ 
     display:none;
 }
 
 
-.board-user #user-from-sumit {
+.board_user #user-from-sumit {
     position: absolute;
     bottom: 0px;
     margin-bottom: 30px;
@@ -301,7 +307,7 @@ textarea:focus {
     font-weight: 300;    
     transition: 1s;
 }
-.board-user #user-from-sumit:hover {
+.board_user #user-from-sumit:hover {
     background-color: aliceblue;
     color: var(--line-color);
 }
