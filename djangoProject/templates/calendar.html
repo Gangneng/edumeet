@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hackerton start</title>
+    <link rel="stylesheet" href="{% static 'teacher/style.css' %}" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!--
+	 <script defer src="{% static 'teacher/script.js' %}"></script>
+	-->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <div id="header">옵션</div>
+
+      <div id="container">
+        <div id="calendar-wrap">
+          <header>
+            <h1>December 2017</h1>
+          </header>
+          <div id="calendar">
+            <ul class="weekdays">
+              {% for i in weakname %}
+              <li>{{i}}</li>
+              {% endfor %}
+            </ul>
+
+            <!-- Days from previous month -->
+            {% for cal_week in bigcalendar %}
+            <ul class="days">
+              {% for cal_day in cal_week %}
+              <li class="day">
+                <div class="date">{{cal_day}}</div>
+                <div class="event">
+                  <div class="event-desc">수업있음</div>
+                  <div class="event-time">1:00pm to 3:00pm</div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+            <ul class="days">
+              <li class="day">
+                <div class="date">Ev</div>
+                <div class="event">
+                  <div class="event-desc">
+                    HTML 5 lecture with Brad Traversy from Eduonix
+                  </div>
+                  <div class="event-time">1:00pm to 3:00pm</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- /. calendar -->
+        </div>
+        <!-- /. wrap -->
+      </div>
+    </div>
+  </body>
+</html>

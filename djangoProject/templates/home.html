@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="Hacker Ton" />
+
+    <title>안녕하세요. {{name}} 선생님</title>
+
+    {% include "head.html" %}
+  </head>
+
+  <body style="overflow-x: hidden; overflow-y: auto">
+    <!-- <div class="intopage">
+      <input id="username" /><button id="btn-join">Join Room</button>
+    </div> -->
+    <div class="site_board">
+      {% include 'navigator.html' %}
+      <div class="board">
+        <div id="calendar-wrap">
+          <header>
+            <h1>December 2021</h1>
+          </header>
+          <div id="calendar">
+            <ul class="weekdays">
+              {% for i in weakname %}
+              <li>{{i}}</li>
+              {% endfor %}
+            </ul>
+
+            <!-- Days from previous month -->
+            {% for cal_week in bigcalendar %}
+            <ul class="days">
+              {% for cal_day in cal_week %}
+              <li class="day">
+                <div class="date">{{cal_day.date}}</div>
+                <div class="event">
+                  {% for lecture in cal_day.lectures %}
+                  <div class="event-desc"></div>
+                  <div class="class_info">
+                    {{lecture.grade_id.name}}-{{ lecture.class_id.name }}
+                  </div>
+                  <div class="subject">{{lecture.subject_id.name}}</div>
+
+                  <div class="event-time">
+                    {{ lecture.get_class_time_display }}
+                  </div>
+                  {% endfor %}
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+            <ul class="days">
+              <li class="day">
+                <div class="date">Ev</div>
+                <div class="event">
+                  <div class="event-desc">
+                    HTML 5 lecture with Brad Traversy from Eduonix
+                  </div>
+                  <div class="event-time">1:00pm to 3:00pm</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- /. calendar -->
+        </div>
+        <!-- /. wrap -->
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>hello </div>
+    <script>
+        var loc = window.location
+        var wsStart = 'ws://'
+        if (loc.protocol == 'https:'){
+            wsStart = 'wss://'
+        }
+        var endpoint = wsStart + loc.host + loc.pathname
+        var socket = new WebSocket(endpoint)
+
+        socket.onopen = function(e){
+            console.log("socket open",e)
+
+        }
+        socket.onmessage = function(e){
+            console.log("socket message",e)
+
+        }
+        socket.onerror = function(e){
+            console.log("socket error",e)
+        }
+        socket.onclose = function(e){
+            console.log("socket close",e)
+        }
+
+    </script>
+</body>
+</html>
