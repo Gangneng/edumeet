@@ -160,37 +160,64 @@
             </div>
         </div>
         <div class="board board_calendar board_display">
-            <div id="cal_line">
-            <div id="cal_cont">
-                <div id="calendar-wrap">
-                <div id="calendar">
-                    <ul class="weekdays">
-                        {% for i in weakname %}
-                        <li>{{i}}</li>
-                        {% endfor %}
-                    </ul>
 
-                    <!-- Days from previous month -->
-                    {% for cal_week in bigcalendar %}
-                    <ul class="days">
-                        {% for cal_day in cal_week %}
-                        <li class="day">
-                            <div class="date">{{cal_day}}</div>
-                            <div class="event">
-                                <div class="event-desc">
-                                    수업있음
-                                </div>
-                                <div class="event-time">
-                                    1:00pm to 3:00pm
-                                </div>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endfor %}
-                </div><!-- /. calendar -->
+            <div class="schedule">
+                <div id='schedule-line'>
+                    <div id='schedule-title'>
+                        수업 작성
+                    </div>
+                    <div>수업 시간</div>
+                    <p>시작시간 <input id="schedule-start" type="time" value="13:30" /></p>
+                    <p>종료시간 <input id="schedule-end" type="time" value="13:30" /> </p>
+                    <hr id='schedule-hr'>
+                    <div>학생</div>
+
+                    <select name="select-profession" id="select-profession">
+                        <option value="" disabled>Profession</option>
+                        <option value="해커">해커</option>
+                        <option value="게이머">게이머</option>
+                        <option value="테러범">테러범</option>
+                        <option value="마피아">마피아</option>
+                        <option value="갱스터">갱스터</option>
+                    </select>
+                    <input id='schedule-btn' type="button" value="확인">
+
+                </div>
+
             </div>
-        </div></div></div>
+            <div id="cal_line">
+                <div id="cal_cont">
+                    <div id="calendar-wrap">
+                        <div id="calendar">
+                            <ul class="weekdays">
+                                {% for i in weakname %}
+                                <li>{{i}}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <!-- Days from previous month -->
+                            {% for cal_week in bigcalendar %}
+                            <ul class="days">
+                                {% for cal_day in cal_week %}
+                                <li class="day">
+                                    <div class="date">{{cal_day}}</div>
+                                    <div class="event">
+                                        <div class="event-desc">
+                                            수업있음
+                                        </div>
+                                        <div class="event-time">
+                                            1:00pm to 3:00pm
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endfor %}
+                        </div><!-- /. calendar -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </body>
