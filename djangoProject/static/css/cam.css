@@ -5,6 +5,12 @@
     --line-color : #4187f6;
 }
 
+input:focus {
+    outline:none;
+}
+textarea:focus {
+    outline:none;
+}
 /* sidebar bar */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 *{
@@ -14,14 +20,6 @@
     font-family: 'Poppins', sans-serif;
     
 }
-.intopage {
-    position: fixed;
-    text-align: center;
-    z-index: 1;
-    width: 100vw;
-    height: 100vh;
-}
-
 .site_board {
     display: flex;
     justify-content: left;
@@ -42,9 +40,9 @@
     transition: width 0.5s;
 }
 .navigation:hover{
-    width: 300px;
+    width: 200px;
+    
 }
-
 .navigation ul{ 
     position: absolute;
     top: 0;
@@ -98,7 +96,7 @@
     min-width: 40px;
     height: 40px;
     line-height: 45px;
-    text-align: center;
+    text-align: cener;
 }
 .navigation ul li a #nv_icon ion-icon {
     position: relative;
@@ -118,20 +116,188 @@
 .navigation ul li.nv_active {
     background: var(--line-color);         
 }
-/* board_Home */
-.board_home {
+
+.board-home {
     display: none;
     width: 100vw;
     height: var(--my-height);
     text-align: center;
-    background-color: #fffffd;
+    background-color: #333333;
+    transition: 3s
+}
+.board-home:hover {
+    background-color: #aaaaaa;
+}
+
+
+
+
+
+
+
+/* board user */
+
+
+.board-user {
+    display: none;
+    position: relative;
+    margin-left: 10px;
+    width: 100vw;
+    text-align: center;
+}
+
+.board-user .user-from {
+    position: relative;
+    display: inline-block;    
+    margin-left: 10px;
+    width: 70vw;
+    height: 80vh;    
+    border: 3px solid var(--line-color);
+    border-radius: 39px;
+    box-shadow: 4px 10px 11px 10px #323232;
+    text-align: left;
+    font-size: 20px;
+}
+.board-user .user-from #user-from-title {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid ;
+    border-bottom-right-radius: 10px;    
+    border-bottom-left-radius: 10px;
+    
+}
+
+.board-user .user-from #user-from-top-left {
+    position: relative;
+    display: inline-block;
+    width: 60%;
+}
+
+.board-user .user-from #user-name {
+    position: relative;
+    display: inline-block;
+    margin-top: 30px;
+    padding-left: 30px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid;
+    border-bottom-right-radius: 10px;    
+    border-bottom-left-radius: 10px;
+}
+
+.board-user .user-from #user-name #input-user-name {
+    color: aliceblue;
+    margin-left: 20px;
+    height: 30px;
+    width: 100px;
+    border:none;
+    background-color: var(--back-color);
+    font-size: 20px;
+}
+
+
+.board-user .user-from #user-info {
+    position: relative;
+    padding-left: 30px;
+    height: 30px;
+    margin-top: 40px;
+}
+
+.board-user .user-from #tta-user-info {
+    margin-left: 30px;
+    padding-left: 10px;
+    margin-top: 10px;
+    border: none;
+    border-top: 2px solid #aaa;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom: 2px solid #aaa;
+    border-bottom-right-radius: 10px;    
+    border-bottom-left-radius: 10px;
+    height: 100px;
+    background-color: var(--back-color);
+    width: 80%;
+    color: aliceblue;
+    background-image:
+    linear-gradient(to right, var(--back-color) 10px, transparent 10px),
+    linear-gradient(to left, var(--back-color) 10px, transparent 10px),
+    repeating-linear-gradient(var(--back-color), var(--back-color)  30px, white 30px, white 31px);
+    font-size: 15px;
+    line-height: 31px;   
+}  
+
+
+.board-user .user-from #user-from-top-right {
+    position: absolute;
+    display: inline-block;
+    margin-top: 30px;
+    height: 230px;
+    border-top: 2px solid #aaa;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom: 2px solid #aaa;
+    border-bottom-right-radius: 10px;    
+    border-bottom-left-radius: 10px;
+    width: 35%;
+    text-align: center;
     transition: 1s;
 }
-.board_home:hover {
-    background-color: black;
+.board-user .user-from #user-from-top-right:hover{
+    filter: blur(2px);
+    background-color: #6a6b6c;
+}
+
+.board-user .user-from #user-from-top-right img {
+    transform: translateY(35%);
+}
+
+.board-user #user-from-botten #user-from-liner1 {
+    border : 1px solid ;
+    margin: 30px;
+    border-radius: 10px;
+    
+}
+
+.board-user #user-from-botten #user-from-liner2 {
+    border: 1px dashed ;
+    margin: 2px;
+    padding: 15px;
+    border-radius: 10px;
+    background-image:
+    linear-gradient(to right, var(--back-color) 10px, transparent 10px),
+    linear-gradient(to left, var(--back-color) 10px, transparent 10px),
+    repeating-linear-gradient(var(--back-color), var(--back-color)  30px, white 30px, white 31px);
+    font-size: 15px;
+    line-height: 31px;
+    padding-top: 4px;
+    max-height: 300px;
+    overflow-y: scroll;   
+}
+.board-user #user-from-botten #user-from-liner2::-webkit-scrollbar{ 
+    display:none;
 }
 
 
+.board-user #user-from-sumit {
+    position: absolute;
+    bottom: 0px;
+    margin-bottom: 30px;
+    right: 30px;
+    padding: 5px 10px;
+    border: 2px solid var(--line-color);
+    border-radius: 30px;
+    background-color: #4a4c4d;
+    filter: blur(0.1px);
+    font-weight: 300;    
+    transition: 1s;
+}
+.board-user #user-from-sumit:hover {
+    background-color: aliceblue;
+    color: var(--line-color);
+}
+    
+    
 
 /* board_Live */
 .board_Live {
@@ -291,30 +457,3 @@
     width: 16vw;
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
