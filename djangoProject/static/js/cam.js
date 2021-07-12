@@ -19,11 +19,9 @@ var messageList = document.querySelector('#message-list');
 var messageInput = document.querySelector('#chat_input');
 
 const servers = {
-    iceservers: [
-        {
-            urls: ['stun:stun1.1.google.com:19302','stun:stun2.1.google.com:19302'],
-        },
-    ],
+    iceservers: [{
+        urls: ['stun:stun1.1.google.com:19302', 'stun:stun2.1.google.com:19302'],
+    }, ],
     iceCandidatePoolSize: 10,
 }
 
@@ -32,7 +30,10 @@ var localVideo = document.querySelector('#local-video');
 const btnToggleAudio = document.querySelector('#btn-toggle-audio');
 const btnToggleVideo = document.querySelector('#btn-toggle-video');
 const btnToggleSave = document.querySelector('#btn-toggle-save');
-var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
+var localStream = navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+    })
     .then(stream => {
         localStream = stream;
         localVideo.srcObject = localStream;
@@ -42,7 +43,7 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
 
         btnToggleVideo.addEventListener('click', () => {
             videoTracks[0].enabled = !videoTracks[0].enabled;
-            if(videoTracks[0].enabled){
+            if (videoTracks[0].enabled) {
                 btnToggleVideo.innerHTML = 'Video Off';
                 return;
             }
@@ -51,7 +52,7 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
 
         btnToggleAudio.addEventListener('click', () => {
             audioTracks[0].enabled = !audioTracks[0].enabled;
-            if(audioTracks[0].enabled){
+            if (audioTracks[0].enabled) {
                 btnToggleVideo.innerHTML = 'audio Off';
                 return;
             }
@@ -60,7 +61,7 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
 
         btnToggleSave.addEventListener('click', () => {
             //저장 시작
-            if(btnToggleSave.innerHTML=='Save Start'){
+            if (btnToggleSave.innerHTML == 'Save Start') {
                 /*
                 let classtime = new Date();
                 let year = classtime.getFullYear();
@@ -69,9 +70,11 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
                 let hours = classtime.getHours();
                 */
                 btnToggleSave.innerHTML = 'Save Stop';
-                startRecording(localVideo.captureStream()).then(recordedChunks=>{
+                startRecording(localVideo.captureStream()).then(recordedChunks => {
                     console.log("Quit Recording...");
-                    let recordedBlob = new Blob(recordedChunks, {type:"video/mp4"});
+                    let recordedBlob = new Blob(recordedChunks, {
+                        type: "video/mp4"
+                    });
                     localVideo.src = URL.createObjectURL(recordedBlob);
                     a.href = localVideo.src;
                     a.download = 'recordvideo.mp4';
@@ -81,7 +84,7 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
                     btnToggleSave.innerHTML = 'Save Start';
 
                     console.log("Successfully recorded " + recordedBlob.size + " bytes of " +
-        recordedBlob.type + " media.");
+                        recordedBlob.type + " media.");
                 })
             }
 
@@ -95,41 +98,41 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
 // 비디오 저장
 var a = document.createElement("a");
 document.body.appendChild(a);
-a.style='display:none';
+a.style = 'display:none';
 
 
 function startRecording(stream) {
     console.log("Start Recording...");
     let recorder = new MediaRecorder(stream);
     let data = [];
-  
+
     recorder.ondataavailable = event => data.push(event.data);
     recorder.start();
 
     let stopped = new Promise((resolve, reject) => {
-      recorder.onstop = resolve;
-      recorder.onerror = event => reject(event.name);
+        recorder.onstop = resolve;
+        recorder.onerror = event => reject(event.name);
     });
-  
-    let recorded = btnToggleSave.addEventListener('click', ()=>{
-        if(btnToggleSave.innerHTML=='Save Stop'){
+
+    let recorded = btnToggleSave.addEventListener('click', () => {
+        if (btnToggleSave.innerHTML == 'Save Stop') {
             recorder.state == "recording" && recorder.stop();
         }
-    })    
-    
+    })
+
     return Promise.all([
-      stopped,
-      recorded
-    ])
-    .then(() => data);
-  }
+            stopped,
+            recorded
+        ])
+        .then(() => data);
+}
 
 function main() {
     // 사이드바 설정
     sideBarActive();
-    
 
-    btnJoin.addEventListener('click', ()=> {
+
+    btnJoin.addEventListener('click', () => {
         username = usernameInput.value;
         usernameInput.style.visibility = "hidden";
         btnJoin.style.visibility = "hidden";
@@ -139,7 +142,7 @@ function main() {
 }
 
 // 비디오 만들기
-function makeSocket () {
+function makeSocket() {
     var loc = window.location;
     var wsStart = 'ws://';
     if (loc.protocol == 'https://') {
@@ -155,7 +158,7 @@ function makeSocket () {
             'room_group_name': 'Test-Room'
         }
         var jsonSend = JSON.stringify({
-            'send_type' : 'new_socket_opened',
+            'send_type': 'new_socket_opened',
             'peer_data': My_data,
         });
         webSocket.send(jsonSend);
@@ -167,7 +170,7 @@ function makeSocket () {
         if (username == peer_data['user_name']) {
             console.log('Same username: ', jsonDic)
 
-            if (jsonDic['send_type'] == 'send_image'){
+            if (jsonDic['send_type'] == 'send_image') {
                 console.log('send_type: send_image here');
                 sendImgMaker()
                 return;
@@ -175,23 +178,23 @@ function makeSocket () {
             return;
         }
         var send_type = jsonDic['send_type'];
-        if (send_type == 'websocket accepted!'){
+        if (send_type == 'websocket accepted!') {
             My_data['channel_name'] = jsonDic['peer_data']['channel_name'];
             console.log('send_type: websocket accepted!', My_data);
             sendImgMaker()
             return;
         }
-        if (send_type == 'new_socket_opened'){
+        if (send_type == 'new_socket_opened') {
             newSocketOffer(peer_data);
             console.log('send_type: new_socket_opened');
             return;
         }
-        if (send_type == 'icecandidate_offer'){
+        if (send_type == 'icecandidate_offer') {
             console.log('send_type: icecandidate_offer');
             newSocketAnswer(jsonDic['sdp'], peer_data, jsonDic['receiver_peer']['channel_name'])
             return;
         }
-        if (send_type == 'icecandidate_answer'){
+        if (send_type == 'icecandidate_answer') {
             console.log('send_type: icecandidate_answer');
             var answer = jsonDic['sdp'];
             var peer = mapPeers[peer_data['user_name']][0];
@@ -199,7 +202,7 @@ function makeSocket () {
                 .then(console.log('work done'));
             return;
         }
-        if (send_type == ''){
+        if (send_type == '') {
             console.log('send_type: Null');
         }
     }
@@ -214,7 +217,10 @@ function makeSocket () {
 async function newSocketOffer(peer_data) {
     // 여기 는 로컬 ip만 가능 다른 ip와 통신하려면 턴 서버 스턴서버를 적용해야함
     var peer = new RTCPeerConnection(servers);
-    localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
+    localStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+    });
 
     localStream.getTracks().forEach((track) => {
         peer.addTrack(track, localStream);
@@ -248,25 +254,25 @@ async function newSocketOffer(peer_data) {
     peer.oniceconnectionstatechange = function (e) {
         var iceCS = peer.iceConnectionState;
 
-        if(iceCS === 'failed' || iceCS ==='disconnected' || iceCS === 'closed'){
+        if (iceCS === 'failed' || iceCS === 'disconnected' || iceCS === 'closed') {
             delete mapPeers[peer_data['user_name']];
-            if(iceCS != 'closed') {
+            if (iceCS != 'closed') {
                 peer.close();
             }
             removeVideo(remoteVideo);
         }
     }
-    peer.onicecandidate = function (e){
-        if(e.candidate){
+    peer.onicecandidate = function (e) {
+        if (e.candidate) {
             console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
             return;
         }
 
         var jsonSend = JSON.stringify({
-            'send_type' : 'icecandidate_offer',
+            'send_type': 'icecandidate_offer',
             'peer_data': My_data,
             'sdp': peer.localDescription,
-            'receiver_peer':peer_data,
+            'receiver_peer': peer_data,
         });
         webSocket.send(jsonSend);
     }
@@ -277,7 +283,7 @@ async function newSocketOffer(peer_data) {
             console.log('Local description set successfully');
         });
 }
-async function newSocketAnswer(sdp, peer_data, receiver_channel_name){
+async function newSocketAnswer(sdp, peer_data, receiver_channel_name) {
     // 여기 는 로컬 ip만 가능 다른 ip와 통신하려면 턴 서버 스턴서버를 적용해야함
     var peer = new RTCPeerConnection(servers);
     localStream.getTracks().forEach((track) => {
@@ -286,7 +292,7 @@ async function newSocketAnswer(sdp, peer_data, receiver_channel_name){
 
 
     // 이건 메세지
-    peer.ondatachannel = function (e){
+    peer.ondatachannel = function (e) {
         peer.dc = e.channel;
         peer.dc.onopen = function (e) {
             console.log('Video answer Connected opened!');
@@ -315,25 +321,25 @@ async function newSocketAnswer(sdp, peer_data, receiver_channel_name){
     peer.oniceconnectionstatechange = function (e) {
         var iceCS = peer.iceConnectionState;
         console.log('설마', iceCS)
-        if(iceCS === 'failed' || iceCS ==='disconnected' || iceCS === 'closed'){
+        if (iceCS === 'failed' || iceCS === 'disconnected' || iceCS === 'closed') {
             delete mapPeers[peer_data['user_name']];
-            if(iceCS != 'closed') {
+            if (iceCS != 'closed') {
                 peer.close();
             }
             removeVideo(remoteVideo);
         }
     }
-    peer.onicecandidate = function (e){
-        if(e.candidate){
+    peer.onicecandidate = function (e) {
+        if (e.candidate) {
             console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
             return;
         }
 
         var jsonSend = JSON.stringify({
-            'send_type' : 'icecandidate_answer',
+            'send_type': 'icecandidate_answer',
             'peer_data': My_data,
             'sdp': peer.localDescription,
-            'receiver_peer':peer_data,
+            'receiver_peer': peer_data,
         });
         webSocket.send(jsonSend);
     }
@@ -349,18 +355,18 @@ async function newSocketAnswer(sdp, peer_data, receiver_channel_name){
         })
 }
 
-function createVideo(peer_username){
+function createVideo(peer_username) {
     var videoContainer = document.querySelector('.sdp_videos');
     var remoteVideo = document.createElement('video');
 
-    remoteVideo.id = peer_username + '-video'+ ' work-video';
+    remoteVideo.id = peer_username + '-video' + ' work-video';
     remoteVideo.autoplay = true;
     remoteVideo.playsInline = true;
     remoteVideo.style =
         "position: relative; " +
-        "background-color: black; "+
-        "margin: 1%; "+
-        "border: 3px solid white; "+
+        "background-color: black; " +
+        "margin: 1%; " +
+        "border: 3px solid white; " +
         "border-radius: 3px; " +
         "object-fit:contain; " +
         "height: 90%; " +
@@ -370,7 +376,8 @@ function createVideo(peer_username){
 
     return remoteVideo;
 }
-function removeVideo(div_video){
+
+function removeVideo(div_video) {
     var videoWrapper = div_video;
     videoWrapper.parentNode.removeChild(videoWrapper);
 }
@@ -387,9 +394,9 @@ function sendImgMaker(e) {
     var data_pixel = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
     console.log(canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data);
     var jsonSend = JSON.stringify({
-        'send_type' : 'send_image',
+        'send_type': 'send_image',
         'peer_data': My_data,
-        'video_img' : data_pixel
+        'video_img': data_pixel
     });
     webSocket.send(jsonSend);
     return jsonSend;
@@ -398,7 +405,7 @@ function sendImgMaker(e) {
 /* 채팅 */
 btnSendMsg.addEventListener('click', sendMsgOnclick);
 
-function  sendMsgOnclick(){
+function sendMsgOnclick() {
     var message = messageInput.value;
 
     var li = document.createElement('li');
@@ -407,19 +414,19 @@ function  sendMsgOnclick(){
 
     var dataChannels = getDataChannels();
 
-    message = username + ": " +message;
+    message = username + ": " + message;
 
-    for(index in dataChannels){
+    for (index in dataChannels) {
         dataChannels[index].send(message);
     }
     messageInput.value = "";
 }
 
-function getDataChannels(){
+function getDataChannels() {
     var dataChannels = [];
 
-    for(var peerUsername in mapPeers){
-        var dataChannel= mapPeers[peerUsername][1];
+    for (var peerUsername in mapPeers) {
+        var dataChannel = mapPeers[peerUsername][1];
         dataChannels.push(dataChannel);
     }
     return dataChannels
@@ -428,35 +435,33 @@ function getDataChannels(){
 // 사이드바 설정
 
 
-function sideBarActive(){
-    function activateLink(){
+function sideBarActive() {
+    function activateLink() {
         sidebar_list.forEach((item) =>
-        item.classList.remove('nv_active'));
+            item.classList.remove('nv_active'));
         this.classList.add('nv_active');
         var selectSideBar = this.querySelector('#nv_title').innerHTML
         console.log(selectSideBar);
         boarderAcitve(selectSideBar);
     }
     sidebar_list.forEach((item) =>
-    item.addEventListener('click', activateLink));
+        item.addEventListener('click', activateLink));
 }
 
-function boarderAcitve(selectSideBar){
+function boarderAcitve(selectSideBar) {
     document.querySelector('.intopage').classList.add('board_display');
 
     var elements = document.querySelectorAll('.board').forEach((item) =>
         item.classList.add('board_display'))
-    if (selectSideBar == "Home"){
+    if (selectSideBar == "Home") {
         document.querySelector('.board_home').classList.remove('board_display');
-    }
-    else if (selectSideBar == "User"){
+    } else if (selectSideBar == "User") {
         document.querySelector('.board_user').classList.remove('board_display');
-    }
-    else if (selectSideBar == "Live Class"){
+    } else if (selectSideBar == "Live Class") {
         document.querySelector('.intopage').classList.remove('board_display');
         document.querySelector('.board_Live').classList.remove('board_display');
     }
-    if (selectSideBar == "Calendar"){
+    if (selectSideBar == "Calendar") {
         document.querySelector('.board_calendar').classList.remove('board_display');
     }
 }

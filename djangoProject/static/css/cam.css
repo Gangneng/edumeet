@@ -476,86 +476,97 @@ textarea:focus {
 
 
 /* 켈린더 */
-#calendar {display: block;text-align: center; background-color: aliceblue;}
-body {	font-family: Tahoma;}
-header {	text-align: center;}
-#calendar {	width: 100%;}
-#calendar a {color: #8e352e;text-decoration: none;}
-#calendar ul {	list-style: none;	padding: 0;	margin: 0;	width: 100%;}
-#calendar li {
+.board_calendar {
+    padding-left: 20px;
+    position: relative;
+    width: 100%;
+    height: var(--my-height);
+    text-align: center;
+}
+
+.board_calendar #cal_line {
+    position: relative;
+    display: inline-block;
+    margin: 50px;
+    padding: 10px;
+    width: 80%;
+}
+
+.board_calendar #cal_line #cal_cont {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border: 13px solid var(--line-color);
+    border-radius: 30px;
+    position: relative;
+    padding: 10px;
+}
+.board_calendar #cal_line #cal_cont #calendar-wrap {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border: 2px dashed var(--line-color);
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 1px 1px 30px #a3a3f3;
+}
+.board_calendar #cal_cont #calendar-wrap ul{
+    list-style: none;	
+    padding: 0;	
+    margin: 0;	
+    width: 100%;
+}
+
+.board_calendar #cal_cont #calendar-wrap li{
+    color: white;
     display: block;
 	float: left;
-	width:14.342%;
+	width:14.2%;
 	padding: 5px;
 	box-sizing:border-box;
-	border: 1px solid #ccc;
 	margin-right: -1px;
 	margin-bottom: -1px;
+    text-shadow: 0px 0px 10px #a3a3f3 ;
 }
 
-#calendar ul.weekdays {
-	height: 40px;
-	background: #8e352e;
+.board_calendar #cal_cont #calendar-wrap .weekdays {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background-color: rgba(0,40,163,50%);
+    border: 1px solid var(--line-color);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 20px 40px #a3a3f3 ;
 }
 
-#calendar ul.weekdays li {
-	text-align: center;
-	text-transform: uppercase;
-	line-height: 20px;
-	border: none !important;
-	padding: 10px 6px;
-	color: #fff;
-	font-size: 13px;
+.board_calendar #cal_cont #calendar-wrap  #calendar .days li {
+    position: relative;
+	height: 12vh;
+    border: 1px dashed rgb(80,103,163)
 }
 
-#calendar .days li {
-	height: 180px;
-    background-color: white;
+.board_calendar #cal_cont #calendar-wrap  #calendar .days {
+    position: relative;
+    transition: 3s;
+}
+.board_calendar #cal_cont #calendar-wrap  #calendar .days .date {
+    background-color: rgba(80,103,160,70%);
+    box-shadow: 1px 1px 5px #a3a3f3;
 }
 
-#calendar .days li:hover {
-	background: #d3d3d3;
+.board_calendar #cal_cont #calendar-wrap  #calendar .days .other-month{
+    background-color: rgba(170,170,170,10%)
 }
 
-#calendar .date {
-	text-align: center;
-	margin-bottom: 5px;
-	padding: 4px;
-	background: #333;
-	color: #fff;
-	width: 20px;
-	border-radius: 50%;
-	float: right;
+.board_calendar #cal_cont #calendar-wrap  #calendar .days .event {
+    position: relative;
+    margin: 5px 5px 0px 10px;     
+    padding: 3px;
+    font-size: 10px;
+    background-color: rgba(240,210,130,100%);
+    border: 2px solid white;
+    border-radius: 10px;
+    color: #777777;
 }
-
-#calendar .event {
-	clear: both;
-	display: block;
-	font-size: 13px;
-	border-radius: 4px;
-	padding: 5px;
-	margin-top: 40px;
-	margin-bottom: 5px;
-	line-height: 14px;
-	background: #e4f2f2;
-	border: 1px solid #b5dbdc;
-	color: #009aaf;
-	text-decoration: none;
-}
-
-#calendar .event-desc {
-	color: #666;
-	margin: 3px 0 7px 0;
-	text-decoration: none;	
-}
-
-#calendar .other-month {
-	background: #f5f5f5;
-	color: #666;
-}
-
-
-
-
-
-
