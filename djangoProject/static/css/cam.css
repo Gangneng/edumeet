@@ -16,7 +16,6 @@
 }
 .intopage {
     position: fixed;
-    display: block;
     text-align: center;
     z-index: 1;
     width: 100vw;
@@ -44,8 +43,8 @@
 }
 .navigation:hover{
     width: 300px;
-    
 }
+
 .navigation ul{ 
     position: absolute;
     top: 0;
@@ -119,28 +118,41 @@
 .navigation ul li.nv_active {
     background: var(--line-color);         
 }
+/* board_Home */
+.board_home {
+    display: none;
+    width: 100vw;
+    height: var(--my-height);
+    text-align: center;
+    background-color: #fffffd;
+    transition: 1s;
+}
+.board_home:hover {
+    background-color: black;
+}
 
 
-/* board */
-.board {
+
+/* board_Live */
+.board_Live {
     padding-left: 20px;
     position: relative;
     width: 100%;
     height: var(--my-height);
 }
 
-.board .left_board {
+.board_Live .left_board {
     position: relative;
     width: 70vw;
     height: 0;
 }
-.board .left_board #left_top_board {
+.board_Live .left_board #left_top_board {
     position: relative;
     margin-top: 20px;
     margin-bottom: 20px;
     
 }
-.board .left_board #left_top_board #study_name {
+.board_Live .left_board #left_top_board #study_name {
     position: relative;
     border: 3px solid var(--line-color);
     border-radius: 9px;
@@ -150,7 +162,7 @@
     line-height: 30px;
     
 }
-.board .left_board #left_top_board #main_video {
+.board_Live .left_board #left_top_board #main_video {
     position: relative;
     border: 3px solid var(--line-color);
     border-radius: 9px;
@@ -161,16 +173,16 @@
     
 }
 
-.board .left_board #left_botten_board {
+.board_Live .left_board #left_botten_board {
     position: relative;
     height: auto;
 }
-.board .left_board #left_botten_board .chating  {
+.board_Live .left_board #left_botten_board .chating  {
     width: 95%;
     margin: 2.5%;
     max-height: 40vh;
 }
-.board .left_board #left_botten_board .chating #chat_list{
+.board_Live .left_board #left_botten_board .chating #chat_list{
     position: relative;
     background-color: #fffffd;
     color: black;
@@ -183,10 +195,10 @@
     margin-top: 10px;
     overflow: auto;
 }
-.board .left_board #left_botten_board .chating #chat_send{
+.board_Live .left_board #left_botten_board .chating #chat_send{
     position: relative;
 }
-.board .left_board #left_botten_board .chating #chat_send #chat_input{
+.board_Live .left_board #left_botten_board .chating #chat_send #chat_input{
     position: relative;
     border: 3px solid var(--line-color);
     background-color: #fffffd;
@@ -198,7 +210,7 @@
     padding: 4px;
     width: 80%
 }
-.board .left_board #left_botten_board .chating #chat_btn{
+.board_Live .left_board #left_botten_board .chating #chat_btn{
     position: relative;
     display: block;
     float: right;
@@ -210,14 +222,14 @@
 }
 
 
-.board .right_board {
+.board_Live .right_board {
     position: absolute;
     left: 74vw;
     width: 20%;
 }
 
 
-.board .right_board .connect_video #move_up{
+.board_Live .right_board .connect_video #move_up{
     background-color: var(--back-color);
     text-align: center;
     border: 1px solid var(--line-color);
@@ -225,13 +237,13 @@
     border-top-right-radius: 10px;
     transition: 0.5s;
 }
-.board .right_board .connect_video #move_up:hover {
+.board_Live .right_board .connect_video #move_up:hover {
     background-color: white;
     color: black;
     
 }
 
-.board .right_board .connect_video #move_down{
+.board_Live .right_board .connect_video #move_down{
     background-color: var(--back-color);
     text-align: center;
     border: 1px solid var(--line-color);
@@ -239,13 +251,13 @@
     border-bottom-right-radius: 10px;
     transition: 0.5s;
 }
-.board .right_board .connect_video #move_down:hover {
+.board_Live .right_board .connect_video #move_down:hover {
     position: relative;
     background-color: white;
     color: black;
 }
 
-.board .right_board .connect_video .sdp_videos {
+.board_Live .right_board .connect_video .sdp_videos {
     background-color: #5b5d5f;
     position: relative;
     text-align: center;
@@ -254,10 +266,10 @@
       object-fit: cover;
     
 }
-.board .right_board .connect_video .sdp_videos::-webkit-scrollbar {
+.board_Live .right_board .connect_video .sdp_videos::-webkit-scrollbar {
     display: none;
 }
-.board .right_board .connect_video .sdp_videos #local-video{
+.board_Live .right_board .connect_video .sdp_videos #local-video{
     position: relative;
     background-color: black;
     margin: 1%;
@@ -268,7 +280,7 @@
     width: 16vw;
 
 }
-.board .right_board .connect_video .sdp_videos #work-video{
+.board_Live .right_board .connect_video .sdp_videos #work-video{
     position: relative;
     background-color: black;
     margin: 1%;
