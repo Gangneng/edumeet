@@ -31,6 +31,7 @@ const servers = {
 var localVideo = document.querySelector('#local-video');
 const btnToggleAudio = document.querySelector('#btn-toggle-audio');
 const btnToggleVideo = document.querySelector('#btn-toggle-video');
+const btnToggleSave = document.querySelector('#btn-toggle-save');
 var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
     .then(stream => {
         localStream = stream;
@@ -57,10 +58,71 @@ var localStream= navigator.mediaDevices.getUserMedia({video: true, audio: true})
             btnToggleVideo.innerHTML = 'audio On'
         });
 
+        btnToggleSave.addEventListener('click', () => {
+            //저장 시작
+            if(btnToggleSave.innerHTML=='Save Start'){
+                /*
+                let classtime = new Date();
+                let year = classtime.getFullYear();
+                let month = classtime.getMonth();
+                let date = classtime.getDate();
+                let hours = classtime.getHours();
+                */
+                btnToggleSave.innerHTML = 'Save Stop';
+                startRecording(localVideo.captureStream()).then(recordedChunks=>{
+                    console.log("Quit Recording...");
+                    let recordedBlob = new Blob(recordedChunks, {type:"video/mp4"});
+                    localVideo.src = URL.createObjectURL(recordedBlob);
+                    a.href = localVideo.src;
+                    a.download = 'recordvideo.mp4';
+                    //a.download = yaer+'/'+month+'/'+date+'/'+hours+'.mp4';
+                    //a.click(); //주석 해제 시 비디오 자동 다운로드
+
+                    btnToggleSave.innerHTML = 'Save Start';
+
+                    console.log("Successfully recorded " + recordedBlob.size + " bytes of " +
+        recordedBlob.type + " media.");
+                })
+            }
+
+        })
+
     })
     .catch(error => {
         console.log('Error accessing media devices.', error);
     });
+
+// 비디오 저장
+var a = document.createElement("a");
+document.body.appendChild(a);
+a.style='display:none';
+
+
+function startRecording(stream) {
+    console.log("Start Recording...");
+    let recorder = new MediaRecorder(stream);
+    let data = [];
+  
+    recorder.ondataavailable = event => data.push(event.data);
+    recorder.start();
+
+    let stopped = new Promise((resolve, reject) => {
+      recorder.onstop = resolve;
+      recorder.onerror = event => reject(event.name);
+    });
+  
+    let recorded = btnToggleSave.addEventListener('click', ()=>{
+        if(btnToggleSave.innerHTML=='Save Stop'){
+            recorder.state == "recording" && recorder.stop();
+        }
+    })    
+    
+    return Promise.all([
+      stopped,
+      recorded
+    ])
+    .then(() => data);
+  }
 
 function main() {
     // 사이드바 설정
