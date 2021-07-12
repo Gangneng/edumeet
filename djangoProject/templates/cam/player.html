@@ -158,6 +158,46 @@
             </div>
         </div>
         <div class="board board_calendar board_display">
+            <div id="calendar">
+                <ul class="weekdays">
+                    {% for i in weakname %}
+                    <li>{{i}}</li>
+                    {% endfor %}
+                </ul>
+
+                <!-- Days from previous month -->
+                {% for cal_week in bigcalendar %}
+                <ul class="days"> 
+                    {% for cal_day in cal_week %}                       
+                    <li class="day">
+                        <div class="date">{{cal_day}}</div>   
+                        <div class="event">
+                            <div class="event-desc">
+                                수업있음
+                            </div>
+                            <div class="event-time">
+                                1:00pm to 3:00pm
+                            </div>
+                        </div>    					
+                    </li>
+                    {% endfor %}
+                    
+                </ul>
+                {% endfor %}
+                <ul  class="days">
+                    <li class="day">
+                        <div class="date">Ev</div>
+                        <div class="event">
+                            <div class="event-desc">
+                                HTML 5 lecture with Brad Traversy from Eduonix
+                            </div>
+                            <div class="event-time">
+                                1:00pm to 3:00pm
+                            </div>
+                        </div>    					
+                    </li>
+                </ul>
+            </div><!-- /. calendar -->
         </div>
 
     </div>
