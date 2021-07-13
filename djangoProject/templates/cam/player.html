@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {%  load static %}
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="keywords" content="Hacker Ton">
@@ -19,13 +20,13 @@
 </head>
 
 <body style="overflow-x:hidden; overflow-y:auto;">
-    <div class="intopage">
+    <div class="intopage board_display">
         <input id="username"><button id="btn-join"> Join Room</button>
     </div>
     <div class="site_board">
         <div class="navigation">
             <ul>
-                <li class="nv_list">
+                <li class="nv_list nv_active">
                     <a>
                         <span id='nv_icon'>
                             <ion-icon name="home-outline"></ion-icon>
@@ -41,7 +42,7 @@
                         <span id='nv_title'>User</span>
                     </a>
                 </li>
-                <li class="nv_list nv_active">
+                <li class="nv_list ">
                     <a>
                         <span id='nv_icon'>
                             <ion-icon name="radio-outline"></ion-icon>
@@ -67,7 +68,7 @@
                 </li>
             </ul>
         </div>
-        <div class="board board_home board_display">
+        <div class="board board_home">
             <div> Hellow world</div>
         </div>
         <div class="board board_user board_display">
@@ -90,30 +91,31 @@
                     </div>
                 </div>
                 <div id="user-from-botten">
-                   <div id="user-from-liner1">
-                       <div id="user-from-liner2">
-                           <p>아직 </p>
-                           <p>무엇을 </p>
-                           <p>써야할지 </p>
-                           <p>모르겟다 </p>
-                           <p>그렇다 </p>
-                       </div>
-                   </div>
-                    
+                    <div id="user-from-liner1">
+                        <div id="user-from-liner2">
+                            <p>아직 </p>
+                            <p>무엇을 </p>
+                            <p>써야할지 </p>
+                            <p>모르겟다 </p>
+                            <p>그렇다 </p>
+                        </div>
+                    </div>
+
                 </div>
                 <div id="user-from-sumit">
                     확인
                 </div>
             </div>
         </div>
-        <div class="board board_Live " >
+        <div class="board board_Live board_display">
             <div class="left_board">
                 <div id="left_top_board">
                     <div id='study_name'>
                         <p id='study_title'>1교시 수학 수업시간</p>
                         <div id='study_teacher'>담당쌤 : </div>
                     </div>
-                    <div id="main_video"> 여기 메인 비디오<div style=' height: 300px ;width: 100px;background:  #fff; object-fit: cover;'>실험</div>
+                    <div id="main_video"> 여기 메인 비디오<div
+                            style=' height: 300px ;width: 100px;background:  #fff; object-fit: cover;'>실험</div>
                     </div>
                 </div>
                 <div id="left_botten_board">
@@ -132,7 +134,7 @@
                             </lu>
                         </div>
                         <div id="chat_send">
-                            <input type="text"  id="chat_input" placeholder="유져 아이디 : ">
+                            <input type="text" id="chat_input" placeholder="유져 아이디 : ">
                             <div id="btn-send-msg">버튼</div>
                         </div>
                     </div>
@@ -145,12 +147,12 @@
 
             <div class="right_board">
                 <div class="connect_video">
-                   <div id='move_up'>▲</div>
-                   <div class='sdp_videos'>
-                       <video id="local-video" autoplay playsinline></video>
-                       <canvas id="localCanvas" style="position: absolute; display: none;"></canvas>
-                   </div>
-                   <div id='move_down'>▼</div>
+                    <div id='move_up'>▲</div>
+                    <div class='sdp_videos'>
+                        <video id="local-video" autoplay playsinline></video>
+                        <canvas id="localCanvas" style="position: absolute; display: none;"></canvas>
+                    </div>
+                    <div id='move_down'>▼</div>
                 </div>
                 <button id="btn-toggle-audio">마이크</button>
                 <button id="btn-toggle-video">Video Off</button>
@@ -158,46 +160,78 @@
             </div>
         </div>
         <div class="board board_calendar board_display">
-            <div id="calendar">
-                <ul class="weekdays">
-                    {% for i in weakname %}
-                    <li>{{i}}</li>
-                    {% endfor %}
-                </ul>
 
-                <!-- Days from previous month -->
-                {% for cal_week in bigcalendar %}
-                <ul class="days"> 
-                    {% for cal_day in cal_week %}                       
-                    <li class="day">
-                        <div class="date">{{cal_day}}</div>   
-                        <div class="event">
-                            <div class="event-desc">
-                                수업있음
-                            </div>
-                            <div class="event-time">
-                                1:00pm to 3:00pm
-                            </div>
-                        </div>    					
-                    </li>
-                    {% endfor %}
+            <div class="schedule displaynone">
+                <div id='schedule-line'>
+                    <div id='schedule-title'>
+                        수업 작성
+                    </div>
+                    <div>수업 시간</div>
+                    <p>시작시간 <input id="schedule-start" type="time" value="13:30" /></p>
+                    <p>종료시간 <input id="schedule-end" type="time" value="13:30" /> </p>
+                    <hr id='schedule-hr'>
+                    <div>학생</div>
+
+                    <select name="select-profession" id="select-profession">
+                        <option value="" disabled>Profession</option>
+                        <option value="해커">해커</option>
+                        <option value="게이머">게이머</option>
+                        <option value="테러범">테러범</option>
+                        <option value="마피아">마피아</option>
+                        <option value="갱스터">갱스터</option>
+                    </select>
+                    <input id='schedule-btn' type="button" value="확인">
+                </div>
+            </div>
+            
+            <div class="study-info">
+                <div id='study-info-line'>
+                    <div id='study-info-title'>
+                        학업 성취도
+                    </div>
+                    <div>수업 학습 이해도</div>
+                    <div>pi chart </div>
+                    <img class="fit-picture"
+                         src="https://steamuserimages-a.akamaihd.net/ugc/82590571756920693/50B211BF814EE34506C73E7F329D317BF556D52C/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" style="height: 120px; ">
                     
-                </ul>
-                {% endfor %}
-                <ul  class="days">
-                    <li class="day">
-                        <div class="date">Ev</div>
-                        <div class="event">
-                            <div class="event-desc">
-                                HTML 5 lecture with Brad Traversy from Eduonix
-                            </div>
-                            <div class="event-time">
-                                1:00pm to 3:00pm
-                            </div>
-                        </div>    					
-                    </li>
-                </ul>
-            </div><!-- /. calendar -->
+                    <hr id='schedule-hr'>
+                    <div>정보</div>
+
+                    <input id='study-info-btn' type="button" value="확인">
+                </div>
+            </div>
+            <div id="cal_line">
+                <div id="cal_cont">
+                    <div id="calendar-wrap">
+                        <div id="calendar">
+                            <ul class="weekdays">
+                                {% for i in weakname %}
+                                <li>{{i}}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <!-- Days from previous month -->
+                            {% for cal_week in bigcalendar %}
+                            <ul class="days">
+                                {% for cal_day in cal_week %}
+                                <li class="day">
+                                    <div class="date">{{cal_day}}</div>
+                                    <div class="event">
+                                        <div class="event-desc">
+                                            수업있음
+                                        </div>
+                                        <div class="event-time">
+                                            1:00pm to 3:00pm
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endfor %}
+                        </div><!-- /. calendar -->
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
