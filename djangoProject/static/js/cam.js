@@ -130,7 +130,7 @@ function startRecording(stream) {
 function main() {
     // 사이드바 설정
     sideBarActive();
-
+    calendar_onclickEvent();
 
     btnJoin.addEventListener('click', () => {
         username = usernameInput.value;
@@ -172,7 +172,6 @@ function makeSocket() {
 
             if (jsonDic['send_type'] == 'send_image') {
                 console.log('send_type: send_image here');
-                sendImgMaker()
                 return;
             }
             return;
@@ -181,7 +180,6 @@ function makeSocket() {
         if (send_type == 'websocket accepted!') {
             My_data['channel_name'] = jsonDic['peer_data']['channel_name'];
             console.log('send_type: websocket accepted!', My_data);
-            sendImgMaker()
             return;
         }
         if (send_type == 'new_socket_opened') {
@@ -390,7 +388,7 @@ function sendImgMaker(e) {
     canvas.width = v.videoWidth;
     canvas.height = v.videoHeight;
     canvas.getContext('2d').drawImage(v, 0, 0);
-
+    console.log(canvas)
     var data_pixel = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
     console.log(canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data);
     var jsonSend = JSON.stringify({
@@ -466,4 +464,12 @@ function boarderAcitve(selectSideBar) {
     }
 }
 
+function calendar_onclickEvent(){
+    function popSchedule(){
+        document.querySelector('.schedule').classList.remove('displaynone')
+    }
+    var days =document.querySelectorAll('.day').forEach((item) => 
+        item.addEventListener('click', popSchedule()));
+    console.log(days);
+}
 main()
