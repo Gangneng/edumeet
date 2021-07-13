@@ -168,6 +168,12 @@ function makeSocket () {
             console.log('Same username: ', jsonDic)
 
             if (jsonDic['send_type'] == 'send_image'){
+                if (peer_data['is_absent'] == false){
+                    document.querySelector('#local-video').style.borderColor = "Lime";
+                }
+                else {
+                    document.querySelector('#local-video').style.borderColor = "Red";
+                }
                 console.log('send_type: send_image here');
                 sendImgMaker()
                 return;

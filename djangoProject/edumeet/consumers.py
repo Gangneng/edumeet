@@ -1,3 +1,4 @@
+from .mp_detection import fd_image
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 import asyncio
@@ -83,6 +84,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             videodata = json_load['video_img']
             datalist = list(videodata.values())
             image = np.array(datalist).reshape(480, 640, 4)
+            image, is_absent = fd_image(image)
+            print(is_absent)
+            json_load['peer_data']['is_absent'] = is_absent
             print('receive end')
             print(image[0][0])
             print("time : ", time.time() - start)
