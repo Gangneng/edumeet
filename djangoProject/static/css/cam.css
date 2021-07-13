@@ -351,6 +351,8 @@ textarea:focus {
     margin: 2.5%;
     object-fit: cover;
     padding: 10px;
+    display: inline-block;
+    text-align: center;
     
 }
 

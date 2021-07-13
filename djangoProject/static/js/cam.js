@@ -26,6 +26,7 @@ const servers = {
 }
 
 // 비디오 관련 정리
+var mainVideo = document.querySelector('#main-video-stream')
 var localVideo = document.querySelector('#local-video');
 const btnToggleAudio = document.querySelector('#btn-toggle-audio');
 const btnToggleVideo = document.querySelector('#btn-toggle-video');
@@ -37,6 +38,7 @@ var localStream = navigator.mediaDevices.getUserMedia({
     .then(stream => {
         localStream = stream;
         localVideo.srcObject = localStream;
+        mainVideo.srcObject = localStream;
         localVideo.muted = true;
         var videoTracks = stream.getVideoTracks();
         var audioTracks = stream.getAudioTracks();
