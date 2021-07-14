@@ -1,782 +1,765 @@
 :root {
-    --my-width : 30%; 
-    --my-height : 100vh;
-    --back-color : #3a3c3d;
-    --line-color : #4187f6;
+  --my-width: 30%;
+  --my-height: 100vh;
+  --back-color: #3a3c3d;
+  --line-color: #4187f6;
 }
 
 input:focus {
-    outline:none;
+  outline: none;
 }
 textarea:focus {
-    outline:none;
+  outline: none;
 }
 /* sidebar bar */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-
-
 .intopage {
-    position: absolute;
-    left: 300px;
-    z-index: 3;
+  position: absolute;
+  left: 300px;
+  z-index: 3;
 }
 
 .site_board {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    min-height: var(--my-height);
-    background: var(--back-color);
-    color: white;
-    
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: var(--my-height);
+  background: var(--back-color);
+  color: white;
 }
 .navigation {
-    position: relative;
-    height: var(--my-height);
-    width: 70px;
-    background: var(--back-color);
-    box-shadow: 10px 0 0 var(--line-color);
-    border-left: 10px solid var(--line-color);
-    overflow: hidden;
-    transition: width 0.5s;
+  position: relative;
+  height: var(--my-height);
+  width: 70px;
+  background: var(--back-color);
+  box-shadow: 10px 0 0 var(--line-color);
+  border-left: 10px solid var(--line-color);
+  overflow: hidden;
+  transition: width 0.5s;
 }
-.navigation:hover{
-    width: 200px;
-    
+.navigation:hover {
+  width: 200px;
 }
-.navigation ul{ 
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding-left: 5px;
-    padding-top: 40px;    
+.navigation ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 5px;
+  padding-top: 40px;
 }
-.navigation ul li{
-    position: relative;
-    list-style: none;
-    width: 100%;
-    border-top-left-radius:  15px;
-    border-bottom-left-radius: 15px;
-    
+.navigation ul li {
+  position: relative;
+  list-style: none;
+  width: 100%;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
-.navigation ul li.nv_active a::before{
-    content: '';
-    position: absolute;
-    top: -30px;
-    right: 0;
-    width: 30px;
-    height: 30px;
-    background: var(--back-color);
-    border-radius: 50%;
-    box-shadow: 10px 10px 0 var(--line-color);
+.navigation ul li.nv_active a::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: var(--back-color);
+  border-radius: 50%;
+  box-shadow: 10px 10px 0 var(--line-color);
 }
-.navigation ul li.nv_active a::after{
-    content: '';
-    position: absolute;
-    top: 40px;
-    right: 0;
-    width: 30px;
-    height: 30px;
-    background: var(--back-color);
-    border-radius: 50%;
-    box-shadow: 10px -10px 0 var(--line-color);
+.navigation ul li.nv_active a::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: var(--back-color);
+  border-radius: 50%;
+  box-shadow: 10px -10px 0 var(--line-color);
 }
 .navigation ul li a {
-    position: relative;
-    display: block;
-    width: 100%;
-    display: flex;
-    text-decoration: none;
-    color: #fff;
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: #fff;
 }
 .navigation ul li a #nv_icon {
-    position: relative;
-    display: block;
-    margin-left: 10px;
-    min-width: 40px;
-    height: 40px;
-    line-height: 45px;
-    text-align: cener;
+  position: relative;
+  display: block;
+  margin-left: 10px;
+  min-width: 40px;
+  height: 40px;
+  line-height: 45px;
+  text-align: cener;
 }
 .navigation ul li a #nv_icon ion-icon {
-    position: relative;
-    font-size: 25px;
-    z-index: 1;
-    
+  position: relative;
+  font-size: 25px;
+  z-index: 1;
 }
 .navigation ul li a #nv_title {
-    position: relative;
-    display: block;
-    padding-left: 10px;
-    height: 40px;
-    line-height: 35px;
-    white-space: nowrap;
-    font-size: 15px;
+  position: relative;
+  display: block;
+  padding-left: 10px;
+  height: 40px;
+  line-height: 35px;
+  white-space: nowrap;
+  font-size: 15px;
 }
 .navigation ul li.nv_active {
-    background: var(--line-color);         
+  background: var(--line-color);
 }
-
 
 /* */
-.board_display{
-    display: none;
+.board_display {
+  display: none;
 }
-
 
 /* board home */
 .board_home {
-    width: 100vw;
-    height: var(--my-height);
-    text-align: center;
-    background-color: #333333;
-    transition: 3s;
+  display: none;
+  width: 100vw;
+  height: var(--my-height);
+  text-align: center;
+  background-color: #333333;
+  transition: 3s;
 }
 .board_home:hover {
-    background-color: #aaaaaa;
+  background-color: #aaaaaa;
 }
-
-
-
-
-
-
 
 /* board user */
 
-
 .board_user {
-    position: relative;
-    margin-left: 10px;
-    width: 100vw;
-    text-align: center;
+  position: relative;
+  margin-left: 10px;
+  width: 100vw;
+  text-align: center;
 }
 
 .board_user .user-from {
-    position: relative;
-    display: inline-block;    
-    margin-left: 10px;
-    width: 70vw;
-    height: 80vh;    
-    border: 3px solid var(--line-color);
-    border-radius: 39px;
-    box-shadow: 4px 10px 11px 10px #323232;
-    text-align: left;
-    font-size: 20px;
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+  width: 70vw;
+  height: 80vh;
+  border: 3px solid var(--line-color);
+  border-radius: 39px;
+  box-shadow: 4px 10px 11px 10px #323232;
+  text-align: left;
+  font-size: 20px;
 }
 .board_user .user-from #user-from-title {
-    margin-top: 50px;
-    text-align: center;
-    font-size: 30px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid ;
-    border-bottom-right-radius: 10px;    
-    border-bottom-left-radius: 10px;
-    
+  margin-top: 50px;
+  text-align: center;
+  font-size: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .board_user .user-from #user-from-top-left {
-    position: relative;
-    display: inline-block;
-    width: 60%;
+  position: relative;
+  display: inline-block;
+  width: 60%;
 }
 
 .board_user .user-from #user-name {
-    position: relative;
-    display: inline-block;
-    margin-top: 30px;
-    padding-left: 30px;
-    padding-bottom: 4px;
-    border-bottom: 2px solid;
-    border-bottom-right-radius: 10px;    
-    border-bottom-left-radius: 10px;
+  position: relative;
+  display: inline-block;
+  margin-top: 30px;
+  padding-left: 30px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .board_user .user-from #user-name #input-user-name {
-    color: aliceblue;
-    margin-left: 20px;
-    height: 30px;
-    width: 100px;
-    border:none;
-    background-color: var(--back-color);
-    font-size: 20px;
+  color: aliceblue;
+  margin-left: 20px;
+  height: 30px;
+  width: 100px;
+  border: none;
+  background-color: var(--back-color);
+  font-size: 20px;
 }
 
-
 .board_user .user-from #user-info {
-    position: relative;
-    padding-left: 30px;
-    height: 30px;
-    margin-top: 40px;
+  position: relative;
+  padding-left: 30px;
+  height: 30px;
+  margin-top: 40px;
 }
 
 .board_user .user-from #tta-user-info {
-    margin-left: 30px;
-    padding-left: 10px;
-    margin-top: 10px;
-    border: none;
-    border-top: 2px solid #aaa;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom: 2px solid #aaa;
-    border-bottom-right-radius: 10px;    
-    border-bottom-left-radius: 10px;
-    height: 100px;
-    background-color: var(--back-color);
-    width: 80%;
-    color: aliceblue;
-    background-image:
-    linear-gradient(to right, var(--back-color) 10px, transparent 10px),
+  margin-left: 30px;
+  padding-left: 10px;
+  margin-top: 10px;
+  border: none;
+  border-top: 2px solid #aaa;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom: 2px solid #aaa;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  height: 100px;
+  background-color: var(--back-color);
+  width: 80%;
+  color: aliceblue;
+  background-image: linear-gradient(
+      to right,
+      var(--back-color) 10px,
+      transparent 10px
+    ),
     linear-gradient(to left, var(--back-color) 10px, transparent 10px),
-    repeating-linear-gradient(var(--back-color), var(--back-color)  30px, white 30px, white 31px);
-    font-size: 15px;
-    line-height: 31px;   
-}  
-
+    repeating-linear-gradient(
+      var(--back-color),
+      var(--back-color) 30px,
+      white 30px,
+      white 31px
+    );
+  font-size: 15px;
+  line-height: 31px;
+}
 
 .board_user .user-from #user-from-top-right {
-    position: absolute;
-    display: inline-block;
-    margin-top: 30px;
-    height: 230px;
-    border-top: 2px solid #aaa;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom: 2px solid #aaa;
-    border-bottom-right-radius: 10px;    
-    border-bottom-left-radius: 10px;
-    width: 35%;
-    text-align: center;
-    transition: 1s;
+  position: absolute;
+  display: inline-block;
+  margin-top: 30px;
+  height: 230px;
+  border-top: 2px solid #aaa;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom: 2px solid #aaa;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: 35%;
+  text-align: center;
+  transition: 1s;
 }
-.board_user .user-from #user-from-top-right:hover{
-    filter: blur(2px);
-    background-color: #6a6b6c;
+.board_user .user-from #user-from-top-right:hover {
+  filter: blur(2px);
+  background-color: #6a6b6c;
 }
 
 .board_user .user-from #user-from-top-right img {
-    transform: translateY(35%);
+  transform: translateY(35%);
 }
 
 .board_user #user-from-botten #user-from-liner1 {
-    border : 1px solid ;
-    margin: 30px;
-    border-radius: 10px;
-    
+  border: 1px solid;
+  margin: 30px;
+  border-radius: 10px;
 }
 
 .board_user #user-from-botten #user-from-liner2 {
-    border: 1px dashed ;
-    margin: 2px;
-    padding: 15px;
-    border-radius: 10px;
-    background-image:
-    linear-gradient(to right, var(--back-color) 10px, transparent 10px),
+  border: 1px dashed;
+  margin: 2px;
+  padding: 15px;
+  border-radius: 10px;
+  background-image: linear-gradient(
+      to right,
+      var(--back-color) 10px,
+      transparent 10px
+    ),
     linear-gradient(to left, var(--back-color) 10px, transparent 10px),
-    repeating-linear-gradient(var(--back-color), var(--back-color)  30px, white 30px, white 31px);
-    font-size: 15px;
-    line-height: 31px;
-    padding-top: 4px;
-    max-height: 300px;
-    overflow-y: scroll;   
+    repeating-linear-gradient(
+      var(--back-color),
+      var(--back-color) 30px,
+      white 30px,
+      white 31px
+    );
+  font-size: 15px;
+  line-height: 31px;
+  padding-top: 4px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
-.board_user #user-from-botten #user-from-liner2::-webkit-scrollbar{ 
-    display:none;
+.board_user #user-from-botten #user-from-liner2::-webkit-scrollbar {
+  display: none;
 }
-
 
 .board_user #user-from-sumit {
-    position: absolute;
-    bottom: 0px;
-    margin-bottom: 30px;
-    right: 30px;
-    padding: 5px 10px;
-    border: 2px solid var(--line-color);
-    border-radius: 30px;
-    background-color: #4a4c4d;
-    filter: blur(0.1px);
-    font-weight: 300;    
-    transition: 1s;
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 30px;
+  right: 30px;
+  padding: 5px 10px;
+  border: 2px solid var(--line-color);
+  border-radius: 30px;
+  background-color: #4a4c4d;
+  filter: blur(0.1px);
+  font-weight: 300;
+  transition: 1s;
 }
 .board_user #user-from-sumit:hover {
-    background-color: aliceblue;
-    color: var(--line-color);
+  background-color: aliceblue;
+  color: var(--line-color);
 }
-    
-    
 
 /* board_Live */
 .board_Live {
-    padding-left: 20px;
-    position: relative;
-    width: 100%;
-    height: var(--my-height);
+  padding-left: 20px;
+  position: relative;
+  width: 100%;
+  height: var(--my-height);
 }
 
 .board_Live .left_board {
-    position: relative;
-    width: 70vw;
-    height: 0;
+  position: relative;
+  width: 70vw;
+  height: 0;
 }
 .board_Live .left_board #left_top_board {
-    position: relative;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .board_Live .left_board #left_top_board #study_name {
-    position: relative;
-    border: 3px solid var(--line-color);
-    border-radius: 9px;
-    width: 95%;
-    margin: 2.5%;
-    padding: 10px;
-    line-height: 30px;
-    
+  position: relative;
+  border: 3px solid var(--line-color);
+  border-radius: 9px;
+  width: 95%;
+  margin: 2.5%;
+  padding: 10px;
+  line-height: 30px;
 }
 .board_Live .left_board #left_top_board #main_video {
-    position: relative;
-    border: 3px solid var(--line-color);
-    border-radius: 9px;
-    width: 95%;
-    margin: 2.5%;
-    object-fit: cover;
-    padding: 10px;
-    display: inline-block;
-    text-align: center;
-    
+  position: relative;
+  border: 3px solid var(--line-color);
+  border-radius: 9px;
+  width: 95%;
+  margin: 2.5%;
+  object-fit: cover;
+  padding: 10px;
+  display: inline-block;
+  text-align: center;
 }
 
 .board_Live .left_board #left_botten_board {
-    position: relative;
-    height: auto;
+  position: relative;
+  height: auto;
 }
-.board_Live .left_board #left_botten_board .chating  {
-    width: 95%;
-    margin: 2.5%;
-    max-height: 40vh;
+.board_Live .left_board #left_botten_board .chating {
+  width: 95%;
+  margin: 2.5%;
+  max-height: 40vh;
 }
-.board_Live .left_board #left_botten_board .chating #chat_list{
-    position: relative;
-    background-color: #fffffd;
-    color: black;
-    border: 2px solid var(--line-color) ;
-    border-radius: 5px;
-    padding: 10px;
-    line-height: 25px;
-    margin-bottom: 10px;
-    max-height: 20vh;
-    margin-top: 10px;
-    overflow: auto;
+.board_Live .left_board #left_botten_board .chating #chat_list {
+  position: relative;
+  background-color: #fffffd;
+  color: black;
+  border: 2px solid var(--line-color);
+  border-radius: 5px;
+  padding: 10px;
+  line-height: 25px;
+  margin-bottom: 10px;
+  max-height: 20vh;
+  margin-top: 10px;
+  overflow: auto;
 }
-.board_Live .left_board #left_botten_board .chating #chat_send{
-    position: relative;
+.board_Live .left_board #left_botten_board .chating #chat_send {
+  position: relative;
 }
-.board_Live .left_board #left_botten_board .chating #chat_send #chat_input{
-    position: relative;
-    border: 3px solid var(--line-color);
-    background-color: #fffffd;
-    border-radius: 5px;
-    white-space: pre-line;
-    max-height: 10vh;
-    white-space: pre-line;
-    overflow: auto;
-    padding: 4px;
-    width: 80%
+.board_Live .left_board #left_botten_board .chating #chat_send #chat_input {
+  position: relative;
+  border: 3px solid var(--line-color);
+  background-color: #fffffd;
+  border-radius: 5px;
+  white-space: pre-line;
+  max-height: 10vh;
+  white-space: pre-line;
+  overflow: auto;
+  padding: 4px;
+  width: 80%;
 }
-.board_Live .left_board #left_botten_board .chating #chat_btn{
-    position: relative;
-    display: block;
-    float: right;
-    margin-right: 30px;
-    border: 3px solid var(--line-color);
-    border-radius: 10px; 
-    padding: 4px 15px;
-    
+.board_Live .left_board #left_botten_board .chating #chat_btn {
+  position: relative;
+  display: block;
+  float: right;
+  margin-right: 30px;
+  border: 3px solid var(--line-color);
+  border-radius: 10px;
+  padding: 4px 15px;
 }
-
 
 .board_Live .right_board {
-    position: absolute;
-    left: 74vw;
-    width: 20%;
+  position: absolute;
+  left: 74vw;
+  width: 20%;
 }
 
-
-.board_Live .right_board .connect_video #move_up{
-    background-color: var(--back-color);
-    text-align: center;
-    border: 1px solid var(--line-color);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    transition: 0.5s;
+.board_Live .right_board .connect_video #move_up {
+  background-color: var(--back-color);
+  text-align: center;
+  border: 1px solid var(--line-color);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transition: 0.5s;
 }
 .board_Live .right_board .connect_video #move_up:hover {
-    background-color: white;
-    color: black;
-    
+  background-color: white;
+  color: black;
 }
 
-.board_Live .right_board .connect_video #move_down{
-    background-color: var(--back-color);
-    text-align: center;
-    border: 1px solid var(--line-color);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition: 0.5s;
+.board_Live .right_board .connect_video #move_down {
+  background-color: var(--back-color);
+  text-align: center;
+  border: 1px solid var(--line-color);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  transition: 0.5s;
 }
 .board_Live .right_board .connect_video #move_down:hover {
-    position: relative;
-    background-color: white;
-    color: black;
+  position: relative;
+  background-color: white;
+  color: black;
 }
 
 .board_Live .right_board .connect_video .sdp_videos {
-    background-color: #5b5d5f;
-    position: relative;
-    text-align: center;
-    max-height: 80vh;
-    overflow: auto;
-      object-fit: cover;
-    
+  background-color: #5b5d5f;
+  position: relative;
+  text-align: center;
+  max-height: 80vh;
+  overflow: auto;
+  object-fit: cover;
 }
 .board_Live .right_board .connect_video .sdp_videos::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
-.board_Live .right_board .connect_video .sdp_videos #local-video{
-    position: relative;
-    background-color: black;
-    margin: 1%;
-    border: 3px solid white;
-    border-radius: 3px;
-    object-fit:contain;
-    height: 90%;
-    width: 16vw;
-
+.board_Live .right_board .connect_video .sdp_videos #local-video {
+  position: relative;
+  background-color: black;
+  margin: 1%;
+  border: 3px solid white;
+  border-radius: 3px;
+  object-fit: contain;
+  height: 90%;
+  width: 16vw;
 }
-.board_Live .right_board .connect_video .sdp_videos #work-video{
-    position: relative;
-    background-color: black;
-    margin: 1%;
-    border: 3px solid white;
-    border-radius: 3px;
-    object-fit:contain;
-    height: 90%;
-    width: 16vw;
-    
+.board_Live .right_board .connect_video .sdp_videos #work-video {
+  position: relative;
+  background-color: black;
+  margin: 1%;
+  border: 3px solid white;
+  border-radius: 3px;
+  object-fit: contain;
+  height: 90%;
+  width: 16vw;
 }
-
-
 
 /* 켈린더 */
 .board_calendar {
-    padding-left: 20px;
-    position: relative;
-    width: 100%;
-    height: var(--my-height);
-    text-align: center;
+  padding-left: 20px;
+  position: relative;
+  width: 100%;
+  height: var(--my-height);
+  text-align: center;
 }
 
 .board_calendar #cal_line {
-    position: relative;
-    display: inline-block;
-    margin: 50px;
-    padding: 10px;
-    width: 80%;
+  position: relative;
+  display: inline-block;
+  margin: 50px;
+  padding: 10px;
+  width: 80%;
 }
 
 .board_calendar #cal_line #cal_cont {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    border: 13px solid var(--line-color);
-    border-radius: 30px;
-    position: relative;
-    padding: 10px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border: 13px solid var(--line-color);
+  border-radius: 30px;
+  position: relative;
+  padding: 10px;
 }
 .board_calendar #cal_line #cal_cont #calendar-wrap {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    border: 2px dashed var(--line-color);
-    border-radius: 10px;
-    position: relative;
-    box-shadow: 1px 1px 30px #a3a3f3;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border: 2px dashed var(--line-color);
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 1px 1px 30px #a3a3f3;
 }
-.board_calendar #cal_cont #calendar-wrap ul{
-    list-style: none;	
-    padding: 0;	
-    margin: 0;	
-    width: 100%;
+.board_calendar #cal_cont #calendar-wrap ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
-.board_calendar #cal_cont #calendar-wrap li{
-    color: white;
-    display: block;
-	float: left;
-	width:14.300%;
-	padding: 5px;
-	box-sizing:border-box;
-	margin-right: -1px;
-	margin-bottom: -1px;
-    text-shadow: 0px 0px 10px #a3a3f3 ;
+.board_calendar #cal_cont #calendar-wrap li {
+  color: white;
+  display: block;
+  float: left;
+  width: 14.3%;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-right: -1px;
+  margin-bottom: -1px;
+  text-shadow: 0px 0px 10px #a3a3f3;
 }
 
 .board_calendar #cal_cont #calendar-wrap .weekdays {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    background-color: rgba(0,40,163,50%);
-    border: 1px solid var(--line-color);
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    padding: 10px;
-    box-shadow: 0px 20px 40px #a3a3f3 ;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(0, 40, 163, 50%);
+  border: 1px solid var(--line-color);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 20px 40px #a3a3f3;
 }
 
-.board_calendar #cal_cont #calendar-wrap  #calendar .days li {
-    position: relative;
-	height: 12vh;
-    border: 1px dashed rgb(80,103,163)
+.board_calendar #cal_cont #calendar-wrap #calendar .days li {
+  position: relative;
+  height: 12vh;
+  border: 1px dashed rgb(80, 103, 163);
 }
 
-.board_calendar #cal_cont #calendar-wrap  #calendar .days {
-    position: relative;
-    transition: 3s;
+.board_calendar #cal_cont #calendar-wrap #calendar .days {
+  position: relative;
+  transition: 3s;
 }
-.board_calendar #cal_cont #calendar-wrap  #calendar .days .date {
-    background-color: rgba(80,103,160,70%);
-    box-shadow: 1px 1px 5px #a3a3f3;
-}
-
-.board_calendar #cal_cont #calendar-wrap  #calendar .days .other-month{
-    background-color: rgba(170,170,170,10%)
+.board_calendar #cal_cont #calendar-wrap #calendar .days .date {
+  background-color: rgba(80, 103, 160, 70%);
+  box-shadow: 1px 1px 5px #a3a3f3;
 }
 
-.board_calendar #cal_cont #calendar-wrap  #calendar .days .event {
-    position: relative;
-    margin: 5px 5px 0px 10px;     
-    padding: 3px;
-    font-size: 10px;
-    background-color: rgba(240,210,130,100%);
-    border: 2px solid white;
-    border-radius: 10px;
-    color: #777777;
+.board_calendar #cal_cont #calendar-wrap #calendar .days .other-month {
+  background-color: rgba(170, 170, 170, 10%);
 }
 
-
-
+.board_calendar #cal_cont #calendar-wrap #calendar .days .event {
+  position: relative;
+  margin: 5px 5px 0px 10px;
+  padding: 3px;
+  font-size: 10px;
+  background-color: rgba(240, 210, 130, 100%);
+  border: 2px solid white;
+  border-radius: 10px;
+  color: #777777;
+}
 
 .board_calendar .displaynone {
-    display: none;
+  display: none;
 }
 
 .board_calendar .schedule {
-    height: 98%;
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 97%;
-    z-index: 4;
-    text-align: center;
+  height: 98%;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  z-index: 4;
+  text-align: center;
 }
 
 .board_calendar .schedule #schedule-line {
-    position: relative;
-    display: inline-block;
-    top: 15%;
-    width: 40%;
-    height: 40%;
-    border: 4px solid var(--line-color);
-    border-radius: 30px;
-    background-color: var(--back-color);
-    box-shadow: 4px 2px 3px var(--line-color);
-    min-height: 400px;
+  position: relative;
+  display: inline-block;
+  top: 15%;
+  width: 40%;
+  height: 40%;
+  border: 4px solid var(--line-color);
+  border-radius: 30px;
+  background-color: var(--back-color);
+  box-shadow: 4px 2px 3px var(--line-color);
+  min-height: 400px;
 }
 
 .board_calendar .schedule #schedule-line {
-    position: relative;
-    display: inline-block;
-    top: 15%;
-    width: 40%;
-    height: 40%;
-    border: 4px solid var(--line-color);
-    border-radius: 30px;
-    background-color: var(--back-color);
-    box-shadow: 4px 2px 3px var(--line-color);
-    text-align: center;
-    line-height: 50px
+  position: relative;
+  display: inline-block;
+  top: 15%;
+  width: 40%;
+  height: 40%;
+  border: 4px solid var(--line-color);
+  border-radius: 30px;
+  background-color: var(--back-color);
+  box-shadow: 4px 2px 3px var(--line-color);
+  text-align: center;
+  line-height: 50px;
 }
 
 .board_calendar .schedule #schedule-line #schedule-title {
-    font-size: 30px;
-    margin: 10px;
-    border-bottom: 1px solid #ccf;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    box-shadow: 1px 4px 2px var(--line-color);
-    padding: 3px;
+  font-size: 30px;
+  margin: 10px;
+  border-bottom: 1px solid #ccf;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 1px 4px 2px var(--line-color);
+  padding: 3px;
 }
 
 .board_calendar .schedule #schedule-line #schedule-title {
-    font-size: 30px;
-    margin: 10px;
-    border-bottom: 1px solid #ccf;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    box-shadow: 1px 4px 2px var(--line-color);
-    padding: 3px;
-
+  font-size: 30px;
+  margin: 10px;
+  border-bottom: 1px solid #ccf;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 1px 4px 2px var(--line-color);
+  padding: 3px;
 }
 
-.board_calendar .schedule input[type=time] {
-    border: none;
-    color: #2a2c2d;
-    font-size: 14px;
-    font-family: helvetica;
-    width: 160px;
-    margin-left: 10px
+.board_calendar .schedule input[type="time"] {
+  border: none;
+  color: #2a2c2d;
+  font-size: 14px;
+  font-family: helvetica;
+  width: 160px;
+  margin-left: 10px;
 }
 
-.board_calendar .schedule input[type=time] {
-    width: 190px;
-    background-color: #5a5b4e;
-    border-radius: 10px;
-    padding: 4px;
-    margin-top: 5px;
+.board_calendar .schedule input[type="time"] {
+  width: 190px;
+  background-color: #5a5b4e;
+  border-radius: 10px;
+  padding: 4px;
+  margin-top: 5px;
 }
 
-.board_calendar .schedule input[type=time]::-webkit-datetime-edit-fields-wrapper {
-    display: flex;
+.board_calendar
+  .schedule
+  input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
 }
 
-.board_calendar .schedule input[type=time]::-webkit-datetime-edit-text {
-    padding: 9px 4px;
+.board_calendar .schedule input[type="time"]::-webkit-datetime-edit-text {
+  padding: 9px 4px;
 }
 
-.board_calendar .schedule input[type=time]::-webkit-datetime-edit-hour-field {
-    background-color: #a2a4a5;
-    border-radius: 15%;
-    padding: 9px 13px;
+.board_calendar .schedule input[type="time"]::-webkit-datetime-edit-hour-field {
+  background-color: #a2a4a5;
+  border-radius: 15%;
+  padding: 9px 13px;
 }
 
-.board_calendar .schedule input[type=time]::-webkit-datetime-edit-minute-field {
-    background-color: #a2a4a5;
-    border-radius: 15%;
-    padding: 9px 13px;
+.board_calendar
+  .schedule
+  input[type="time"]::-webkit-datetime-edit-minute-field {
+  background-color: #a2a4a5;
+  border-radius: 15%;
+  padding: 9px 13px;
 }
 
-.board_calendar .schedule input[type=time]::-webkit-datetime-edit-ampm-field {
-    background-color: var(--line-color);
-    border-radius: 15%;
-    color: #fff;
-    padding: 9px 3px;
+.board_calendar .schedule input[type="time"]::-webkit-datetime-edit-ampm-field {
+  background-color: var(--line-color);
+  border-radius: 15%;
+  color: #fff;
+  padding: 9px 3px;
 }
 
-.board_calendar .schedule input[type=time]::-webkit-clear-button {
-    display: none;
+.board_calendar .schedule input[type="time"]::-webkit-clear-button {
+  display: none;
 }
 
-.board_calendar .schedule input[type=time]::-webkit-inner-spin-button {
-    display: none;
+.board_calendar .schedule input[type="time"]::-webkit-inner-spin-button {
+  display: none;
 }
 
 .board_calendar .schedule hr {
-    margin-top: 20px;
-    border: none;
+  margin-top: 20px;
+  border: none;
 
-    height: 4px;
-    box-shadow: 0px 0px 30px
-}
-.board_calendar .schedule #schedule-btn{
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    border-radius: 20px;
-    padding: 9px;
+  height: 4px;
+  box-shadow: 0px 0px 30px;
 }
 
+.board_calendar .schedule .btn_wrapper {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+.board_calendar .schedule > button {
+  background-color: white !important;
+  padding: 9px;
+  border-radius: 20px;
+}
 
 .board_calendar .study-info {
-    height: 98%;
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 97%;
-    z-index: 4;
-    text-align: center;
+  height: 98%;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  z-index: 4;
+  text-align: center;
 }
 
 .board_calendar .study-info #study-info-line {
-    position: relative;
-    display: inline-block;
-    top: 15%;
-    width: 40%;
-    height: 40%;
-    border: 4px solid var(--line-color);
-    border-radius: 30px;
-    background-color: var(--back-color);
-    box-shadow: 4px 2px 3px var(--line-color);
-    min-height: 400px;
+  position: relative;
+  display: inline-block;
+  top: 15%;
+  width: 40%;
+  height: 40%;
+  border: 4px solid var(--line-color);
+  border-radius: 30px;
+  background-color: var(--back-color);
+  box-shadow: 4px 2px 3px var(--line-color);
+  min-height: 400px;
 }
 
 .board_calendar .study-info #study-info-line {
-    position: relative;
-    display: inline-block;
-    top: 15%;
-    width: 40%;
-    height: 40%;
-    border: 4px solid var(--line-color);
-    border-radius: 30px;
-    background-color: var(--back-color);
-    box-shadow: 4px 2px 3px var(--line-color);
-    text-align: center;
-    line-height: 50px;
+  position: relative;
+  display: inline-block;
+  top: 15%;
+  width: 40%;
+  height: 40%;
+  border: 4px solid var(--line-color);
+  border-radius: 30px;
+  background-color: var(--back-color);
+  box-shadow: 4px 2px 3px var(--line-color);
+  text-align: center;
+  line-height: 50px;
 }
 
 .board_calendar .study-info #study-info-line #study-info-title {
-    font-size: 30px;
-    margin: 10px;
-    border-bottom: 1px solid #ccf;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    box-shadow: 1px 4px 2px var(--line-color);
-    padding: 3px;
-
+  font-size: 30px;
+  margin: 10px;
+  border-bottom: 1px solid #ccf;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 1px 4px 2px var(--line-color);
+  padding: 3px;
 }
 
 .board_calendar .study-info #study-info-line #study-info-title {
-    font-size: 30px;
-    margin: 10px;
-    border-bottom: 1px solid #ccf;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    box-shadow: 1px 4px 2px var(--line-color);
-    padding: 3px;
-
+  font-size: 30px;
+  margin: 10px;
+  border-bottom: 1px solid #ccf;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 1px 4px 2px var(--line-color);
+  padding: 3px;
 }
 .board_calendar .study-info hr {
-    margin-top: 20px;
-    border: none;
+  margin-top: 20px;
+  border: none;
 
-    height: 4px;
-    box-shadow: 0px 0px 30px
+  height: 4px;
+  box-shadow: 0px 0px 30px;
 }
-.board_calendar .study-info #study-info-btn{
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    border-radius: 20px;
-    padding: 9px;
+.board_calendar .study-info #study-info-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 20px;
+  padding: 9px;
 }
